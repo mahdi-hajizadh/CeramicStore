@@ -1,0 +1,14 @@
+@CeramicStore.Api_HostAddress = http://localhost:5158
+
+### لیست محصولات (صفحه‌بندی + جست‌وجو + مرتب‌سازی)
+GET {{CeramicStore.Api_HostAddress}}/api/products?page=1&pageSize=12&sortBy=price&descending=false
+Accept: application/json
+
+### تنظیمات عمومی سایت
+GET {{CeramicStore.Api_HostAddress}}/api/settings
+
+### ورود
+POST {{CeramicStore.Api_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{ "username": "owner", "password": "your-password" }

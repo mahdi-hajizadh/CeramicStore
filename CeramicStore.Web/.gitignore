@@ -1,0 +1,27 @@
+
+# Secrets and local configuration
+**/appsettings.Development.json
+**/.env
+**/.env.*
+!**/.env.example
+**/secrets.json
+
+# .NET build output
+**/bin/
+**/obj/
+**/publish/
+
+# Node / React
+**/node_modules/
+**/dist/
+**/.vite/
+
+# IDE and OS files
+.vs/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

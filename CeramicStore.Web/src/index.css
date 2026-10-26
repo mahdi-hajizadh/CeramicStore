@@ -1,0 +1,14 @@
+/* پایه‌ی مشترک؛ استایل‌های اصلی در App.css و Admin.css هستند. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+}

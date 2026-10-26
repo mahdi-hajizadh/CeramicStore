@@ -1,0 +1,32 @@
+# Secrets and local configuration
+**/appsettings.Development.json
+**/.env
+**/.env.*
+!**/.env.example
+**/secrets.json
+
+# .NET build files
+**/bin/
+**/obj/
+**/publish/
+
+# React / Node
+**/node_modules/
+**/dist/
+**/.vite/
+
+# IDE and OS
+.vs/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Uploaded product images (user data)
+CeramicStore.Api/wwwroot/uploads/*
+!CeramicStore.Api/wwwroot/uploads/.gitkeep
+# Local development configuration
+**/appsettings.Development.json
