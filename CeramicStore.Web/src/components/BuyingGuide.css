@@ -1,0 +1,120 @@
+.buying-guide {
+  --guide-accent: #3984ff;
+  margin-top: 40px;
+  padding: 36px max(20px, calc(50vw - 600px)) 8px;
+  background: #f7f8fa;
+}
+
+.buying-guide__inner {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.buying-guide__header {
+  max-width: 640px;
+  margin-bottom: 24px;
+}
+
+.buying-guide__header h2 {
+  margin: 0 0 8px;
+  color: #1d1d1f;
+  font-family: var(--font-sf-pro-display);
+  font-size: clamp(22px, 2.8vw, 28px);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.buying-guide__header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.buying-guide__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.guide-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 100%;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgb(16 24 40 / 3%);
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.guide-card:hover {
+  border-color: #d3e2ff;
+  box-shadow: 0 8px 20px rgb(16 24 40 / 6%);
+  transform: translateY(-1px);
+}
+
+.guide-card__icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  background: #edf3ff;
+  color: var(--guide-accent);
+}
+
+.guide-card h3 {
+  margin: 0;
+  color: #1d1d1f;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.guide-card p {
+  margin: 0;
+  flex: 1;
+  color: #6b7280;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.guide-card__link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 4px;
+  color: var(--guide-accent);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.guide-card__link:hover {
+  text-decoration: underline;
+}
+
+.guide-card__link:focus-visible {
+  outline: 2px solid var(--guide-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (max-width: 1024px) {
+  .buying-guide__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .buying-guide {
+    padding-inline: 16px;
+  }
+
+  .buying-guide__grid {
+    grid-template-columns: 1fr;
+  }
+}

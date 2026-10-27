@@ -170,5 +170,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 await SeedData.EnsureOwnerAsync(app.Services);
+await SeedData.EnsureProductsAsync(app.Services);
 
 app.Run();

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import "./App.css";
+import BuyingGuide from "./components/BuyingGuide.jsx";
+import ContactSection from "./components/ContactSection.jsx";
 import Pagination from "./components/Pagination.jsx";
 import { useDebouncedValue } from "./useDebouncedValue.js";
 import { useProducts } from "./useProducts.js";
@@ -9,9 +11,7 @@ import {
   formatNumber,
   formatPrice,
   imageSrc,
-  instagramUrl,
   splitStoreName,
-  toTelHref,
 } from "./utils.js";
 
 const PAGE_SIZE = 12;
@@ -31,6 +31,12 @@ function App() {
   const [page, setPage] = useState(1);
   const { settings, images } = useSettings();
   const { hash, key: locationKey } = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const queryFromUrl = searchParams.get("q");
+  const sortFromUrl = searchParams.get("sort");
+  const activeSearchInput = queryFromUrl ?? searchInput;
+  const activeSortValue =
+    sortFromUrl === "newest" ? "newest" : sortValue;
 
   // با ورود به صفحه یا کلیک روی لینک‌های منو (/#products، /#gallery، ...) به بخش موردنظر برو.
   // وابستگی به key باعث می‌شود کلیک دوباره روی همان لینک هم اسکرول کند.
@@ -40,9 +46,9 @@ function App() {
     }
   }, [hash, locationKey]);
 
-  const search = useDebouncedValue(searchInput.trim());
+  const search = useDebouncedValue(activeSearchInput.trim());
   const sort =
-    SORT_OPTIONS.find((option) => option.value === sortValue) ??
+    SORT_OPTIONS.find((option) => option.value === activeSortValue) ??
     SORT_OPTIONS[0];
 
   const { items: products, total, loading, error } = useProducts({
@@ -55,14 +61,24 @@ function App() {
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
+  function clearProductQueryParams() {
+    if (!searchParams.has("q") && !searchParams.has("sort")) return;
+    const next = new URLSearchParams(searchParams);
+    next.delete("q");
+    next.delete("sort");
+    setSearchParams(next, { replace: true });
+  }
+
   function handleSearchChange(event) {
     setSearchInput(event.target.value);
     setPage(1);
+    clearProductQueryParams();
   }
 
   function handleSortChange(event) {
     setSortValue(event.target.value);
     setPage(1);
+    clearProductQueryParams();
   }
 
   function handlePageChange(nextPage) {
@@ -137,13 +153,13 @@ function App() {
           <input
             type="search"
             placeholder="جست‌وجوی نام محصول یا برند..."
-            value={searchInput}
+            value={activeSearchInput}
             onChange={handleSearchChange}
             aria-label="جست‌وجوی محصولات"
           />
 
           <select
-            value={sortValue}
+            value={activeSortValue}
             onChange={handleSortChange}
             aria-label="مرتب‌سازی محصولات"
           >
@@ -272,69 +288,8 @@ function App() {
         </section>
       )}
 
-      <section className="about-section" id="about">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">CONTACT</span>
-            <h2>تماس و آدرس فروشگاه</h2>
-          </div>
-        </div>
-
-        <div className="about-card">
-          {settings.about && <p>{settings.about}</p>}
-
-          <dl>
-            {settings.address && (
-              <div>
-                <dt>آدرس</dt>
-                <dd>{settings.address}</dd>
-              </div>
-            )}
-
-            {settings.phone && (
-              <div>
-                <dt>تلفن</dt>
-                <dd>
-                  <a href={toTelHref(settings.phone)}>
-                    {settings.phone}
-                  </a>
-                </dd>
-              </div>
-            )}
-
-            {settings.workingHours && (
-              <div>
-                <dt>ساعت کاری</dt>
-                <dd>{settings.workingHours}</dd>
-              </div>
-            )}
-
-            {settings.email && (
-              <div>
-                <dt>ایمیل</dt>
-                <dd dir="ltr">
-                  <a href={`mailto:${settings.email}`}>{settings.email}</a>
-                </dd>
-              </div>
-            )}
-
-            {settings.instagram && (
-              <div>
-                <dt>اینستاگرام</dt>
-                <dd dir="ltr">
-                  <a
-                    href={instagramUrl(settings.instagram)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {settings.instagram}
-                  </a>
-                </dd>
-              </div>
-            )}
-          </dl>
-        </div>
-      </section>
+      <ContactSection />
+      <BuyingGuide />
     </>
   );
 }

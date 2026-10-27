@@ -13,15 +13,14 @@
 }
 
 .store > main {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.store > .store-footer {
+.store > .site-footer {
   flex-shrink: 0;
-  margin-top: auto;
 }
 
 .store > main > * {
@@ -32,7 +31,9 @@
 .store > main > .hero,
 .store > main > .products-section,
 .store > main > .gallery-section,
-.store > main > .about-section {
+.store > main > .contact-section,
+.store > main > .buying-guide,
+.store > main > .info-page {
   width: 100%;
   max-width: none;
   margin-inline: 0;
@@ -134,6 +135,7 @@
   gap: var(--spacing-16);
   flex-wrap: wrap;
   flex-shrink: 0;
+  direction: ltr;
 }
 
 .logo {
@@ -769,69 +771,6 @@ a.product-image {
   gap: var(--spacing-8);
 }
 
-/* ----- Footer ----- */
-
-.store-footer {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--spacing-24);
-  margin-top: 0;
-  padding: var(--spacing-24) max(var(--spacing-24), calc(50vw - 490px))
-    var(--spacing-40);
-  border-top: 1px solid var(--color-ash-veil);
-  background: var(--surface-canvas);
-}
-
-.footer-brand {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-12);
-  max-width: 560px;
-}
-
-.footer-brand .brand-logo {
-  width: 32px;
-  height: 32px;
-  margin-top: 2px;
-}
-
-.footer-name {
-  display: block;
-  margin-bottom: var(--spacing-8);
-  color: var(--color-obsidian);
-  font-family: var(--font-sf-pro-display);
-  font-size: 14px;
-  font-weight: var(--font-weight-semibold);
-  direction: ltr;
-}
-
-.store-footer p {
-  margin: 0;
-  color: var(--color-pewter);
-  font-size: var(--text-caption);
-  line-height: var(--leading-caption);
-}
-
-.footer-contact {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--spacing-8);
-  color: var(--color-pewter);
-  font-size: 13px;
-  text-align: left;
-}
-
-.footer-contact a {
-  color: var(--color-iris-blue);
-  font-weight: var(--font-weight-regular);
-}
-
-.footer-contact a:hover {
-  text-decoration: underline;
-}
-
 /* ----- Responsive ----- */
 
 @media (max-width: 1000px) {
@@ -918,16 +857,6 @@ a.product-image {
 
   .product-info h3 {
     min-height: auto;
-  }
-
-  .store-footer {
-    flex-direction: column;
-    gap: var(--spacing-16);
-    padding: var(--spacing-24) var(--spacing-20) var(--spacing-40);
-  }
-
-  .footer-contact {
-    align-items: flex-start;
   }
 }
 

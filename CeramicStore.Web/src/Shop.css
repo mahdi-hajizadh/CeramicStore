@@ -576,20 +576,13 @@
 
 /* ----- Gallery & about ----- */
 
-.gallery-section,
-.about-section {
+.gallery-section {
   padding: var(--section-gap) max(var(--spacing-24), calc(50vw - 490px))
     var(--spacing-40);
   background: var(--surface-canvas);
 }
 
-.about-section {
-  padding-bottom: var(--section-gap);
-  background: var(--surface-pure-white);
-}
-
-.gallery-section .section-heading,
-.about-section .section-heading {
+.gallery-section .section-heading {
   max-width: var(--page-max-width);
 }
 
@@ -627,47 +620,6 @@
   font-size: 13px;
 }
 
-.about-card {
-  max-width: var(--page-max-width);
-  margin-inline: auto;
-  background: var(--surface-canvas);
-}
-
-.about-card p {
-  margin: 0 0 var(--spacing-20);
-  color: var(--color-pewter);
-  font-size: var(--text-body);
-  line-height: var(--leading-body);
-}
-
-.about-card dl {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--spacing-20);
-  margin: 0;
-}
-
-.about-card dt {
-  color: var(--color-pewter);
-  font-size: var(--text-caption);
-  font-weight: var(--font-weight-semibold);
-}
-
-.about-card dd {
-  margin: var(--spacing-4) 0 0;
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--color-obsidian);
-}
-
-.about-card a {
-  color: var(--color-iris-blue);
-}
-
-.about-card a:hover {
-  text-decoration: underline;
-}
-
 .add-to-cart {
   display: flex;
   flex-direction: column;
@@ -700,8 +652,7 @@
     grid-template-columns: 1fr;
   }
 
-  .gallery-section,
-  .about-section {
+  .gallery-section {
     padding-inline: var(--spacing-20);
   }
 }
@@ -718,7 +669,6 @@
   .panel-card,
   .cart-summary,
   .cart-item,
-  .about-card,
   .order-card {
     padding: var(--spacing-16);
   }

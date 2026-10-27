@@ -23,7 +23,9 @@ export function boxesNeeded(area, coverage) {
 }
 
 export function imageSrc(imageUrl) {
-  return imageUrl ? `${API_ORIGIN}${imageUrl}` : "";
+  if (!imageUrl) return "";
+  if (/^https?:\/\//i.test(imageUrl)) return imageUrl;
+  return `${API_ORIGIN}${imageUrl}`;
 }
 
 // ارقام فارسی و عربی را به انگلیسی تبدیل می‌کند تا ورودی عددی درست خوانده شود.

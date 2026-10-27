@@ -18,6 +18,7 @@ import { AuthProvider } from "./auth/AuthProvider.jsx";
 import { CartProvider } from "./cart/CartProvider.jsx";
 import RequireRole from "./components/RequireRole.jsx";
 import StoreLayout from "./components/StoreLayout.jsx";
+import InfoPage from "./pages/InfoPage.jsx";
 import { SettingsProvider } from "./settings/SettingsProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -50,6 +51,10 @@ createRoot(document.getElementById("root")).render(
                     </RequireRole>
                   }
                 />
+                <Route path="/guide/:slug" element={<InfoPage />} />
+                <Route path="/terms" element={<InfoPage pageKey="terms" />} />
+                <Route path="/privacy" element={<InfoPage pageKey="privacy" />} />
+                <Route path="/faq" element={<InfoPage pageKey="faq" />} />
               </Route>
 
               <Route
