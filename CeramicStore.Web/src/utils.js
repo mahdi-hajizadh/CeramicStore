@@ -106,3 +106,15 @@ export function formatDateTime(value) {
     timeStyle: "short",
   });
 }
+
+// نام انگلیسی CamelCase مثل CeramicStore را برای استایل دو‌رنگ لوگو می‌شکند.
+export function splitStoreName(storeName) {
+  const name = String(storeName ?? "").trim() || "CeramicStore";
+
+  if (/^[A-Z][a-z]+[A-Z][A-Za-z]*$/.test(name)) {
+    const parts = name.split(/(?=[A-Z])/);
+    return { first: parts[0], rest: parts.slice(1).join("") };
+  }
+
+  return { first: name, rest: "" };
+}

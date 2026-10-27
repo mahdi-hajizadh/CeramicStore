@@ -10,6 +10,7 @@ import {
   formatPrice,
   imageSrc,
   instagramUrl,
+  splitStoreName,
   toTelHref,
 } from "./utils.js";
 
@@ -72,11 +73,23 @@ function App() {
   }
 
   const firstLoad = loading && products.length === 0;
+  const brand = splitStoreName(settings.storeName);
 
   return (
     <>
       <section className="hero" id="top">
         <div className="hero-content">
+          <p className="hero-brand" aria-label={settings.storeName}>
+            {brand.rest ? (
+              <>
+                {brand.first}
+                <span>{brand.rest}</span>
+              </>
+            ) : (
+              brand.first
+            )}
+          </p>
+
           <span className="eyebrow">CERAMIC &amp; TILE COLLECTION</span>
 
           <h1>

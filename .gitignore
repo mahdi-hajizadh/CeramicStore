@@ -30,3 +30,4 @@ CeramicStore.Api/wwwroot/uploads/*
 !CeramicStore.Api/wwwroot/uploads/.gitkeep
 # Local development configuration
 **/appsettings.Development.json
+.fake

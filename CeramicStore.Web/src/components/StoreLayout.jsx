@@ -5,7 +5,7 @@ import { homePathFor } from "../auth/paths.js";
 import { useAuth } from "../auth/useAuth.js";
 import { useCart } from "../cart/useCart.js";
 import { useSettings } from "../settings/useSettings.js";
-import { formatNumber, toTelHref } from "../utils.js";
+import { formatNumber, splitStoreName, toTelHref } from "../utils.js";
 
 function StoreLayout() {
   const { user, logout } = useAuth();
@@ -13,23 +13,19 @@ function StoreLayout() {
   const { settings, images } = useSettings();
 
   const telHref = toTelHref(settings.phone);
-  // نام انگلیسی مثل CeramicStore به دو بخش (با رنگ دوم) شکسته می‌شود؛ بقیه نام‌ها همان‌طور نمایش داده می‌شوند.
-  const nameParts = /^[A-Z][a-z]+[A-Z][A-Za-z]*$/.test(settings.storeName)
-    ? settings.storeName.split(/(?=[A-Z])/)
-    : [settings.storeName];
-  const [storeFirst, ...storeRest] = nameParts;
+  const brand = splitStoreName(settings.storeName);
 
   return (
     <div className="store">
       <header className="store-header">
         <Link className="logo" to="/">
-          {storeRest.length > 0 ? (
+          {brand.rest ? (
             <>
-              {storeFirst}
-              <span>{storeRest.join("")}</span>
+              {brand.first}
+              <span>{brand.rest}</span>
             </>
           ) : (
-            settings.storeName
+            brand.first
           )}
         </Link>
 
