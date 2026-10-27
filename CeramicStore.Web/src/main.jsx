@@ -9,6 +9,7 @@ import App from "./App.jsx";
 import AccountPage from "./AccountPage.jsx";
 import CartPage from "./CartPage.jsx";
 import CheckoutPage from "./CheckoutPage.jsx";
+import ForgotPasswordPage from "./ForgotPasswordPage.jsx";
 import LoginPage from "./LoginPage.jsx";
 import Owner from "./Owner.jsx";
 import ProductPage from "./ProductPage.jsx";
@@ -32,6 +33,7 @@ createRoot(document.getElementById("root")).render(
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                 <Route
                   path="/checkout"
                   element={

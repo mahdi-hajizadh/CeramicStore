@@ -46,9 +46,23 @@ export function AuthProvider({ children }) {
     return result.user;
   }, []);
 
+  const sendOtp = useCallback(
+    (phone, purpose) =>
+      apiJson("/api/auth/otp/send", {
+        method: "POST",
+        json: { phone, purpose },
+      }),
+    []
+  );
+
   const login = useCallback(
     (username, password) =>
       authenticate("/api/auth/login", { username, password }),
+    [authenticate]
+  );
+
+  const loginOtp = useCallback(
+    (phone, code) => authenticate("/api/auth/login-otp", { phone, code }),
     [authenticate]
   );
 
@@ -57,9 +71,23 @@ export function AuthProvider({ children }) {
     [authenticate]
   );
 
+  const resetPassword = useCallback(
+    (payload) => authenticate("/api/auth/reset-password", payload),
+    [authenticate]
+  );
+
   const value = useMemo(
-    () => ({ user, status, login, register, logout }),
-    [user, status, login, register, logout]
+    () => ({
+      user,
+      status,
+      sendOtp,
+      login,
+      loginOtp,
+      register,
+      resetPassword,
+      logout,
+    }),
+    [user, status, sendOtp, login, loginOtp, register, resetPassword, logout]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -17,17 +17,27 @@ public class AppDbContext : DbContext
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
     public DbSet<SiteSettings> SiteSettings => Set<SiteSettings>();
     public DbSet<StoreImage> StoreImages => Set<StoreImage>();
+    public DbSet<OtpChallenge> OtpChallenges => Set<OtpChallenge>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AppUser>(entity =>
         {
             entity.HasIndex(u => u.Username).IsUnique();
+            entity.HasIndex(u => u.Phone).IsUnique().HasFilter("\"Phone\" IS NOT NULL");
             entity.Property(u => u.Username).HasMaxLength(30);
             entity.Property(u => u.Role).HasMaxLength(20);
             entity.Property(u => u.PermissionsJson).HasColumnType("text").HasDefaultValue("[]");
             entity.Property(u => u.FullName).HasMaxLength(100);
             entity.Property(u => u.Phone).HasMaxLength(20);
+        });
+
+        modelBuilder.Entity<OtpChallenge>(entity =>
+        {
+            entity.Property(o => o.Phone).HasMaxLength(20);
+            entity.Property(o => o.Purpose).HasMaxLength(20);
+            entity.Property(o => o.CodeHash).HasMaxLength(500);
+            entity.HasIndex(o => new { o.Phone, o.Purpose, o.CreatedAt });
         });
 
         modelBuilder.Entity<Address>(entity =>

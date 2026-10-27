@@ -93,6 +93,10 @@ builder.Services.AddScoped<IAuthorizationHandler, PermissionHandler>();
 builder.Services.AddSingleton<IPasswordHasher<AppUser>, PasswordHasher<AppUser>>();
 builder.Services.AddSingleton<TokenService>();
 builder.Services.AddScoped<ImageStorage>();
+builder.Services.AddHttpClient("sms");
+builder.Services.AddSingleton<SmsSender>();
+builder.Services.AddSingleton<ISmsSender>(sp => sp.GetRequiredService<SmsSender>());
+builder.Services.AddScoped<OtpService>();
 
 // ---------- Rate limiting (ورود و ثبت‌نام) ----------
 builder.Services.AddRateLimiter(options =>

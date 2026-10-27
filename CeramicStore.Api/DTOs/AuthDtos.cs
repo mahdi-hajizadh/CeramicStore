@@ -1,15 +1,27 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json;
 using CeramicStore.Api.Models;
 
 namespace CeramicStore.Api.DTOs;
 
+public class SendOtpDto
+{
+    [Required(ErrorMessage = "شماره موبایل الزامی است.")]
+    public string Phone { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "نوع درخواست الزامی است.")]
+    [RegularExpression("^(register|login|reset)$",
+        ErrorMessage = "نوع درخواست باید register، login یا reset باشد.")]
+    public string Purpose { get; set; } = string.Empty;
+}
+
 public class RegisterDto
 {
-    [Required(ErrorMessage = "نام کاربری الزامی است.")]
-    [RegularExpression("^[A-Za-z0-9_.]{3,30}$",
-        ErrorMessage = "نام کاربری باید ۳ تا ۳۰ کاراکتر و فقط شامل حروف انگلیسی، عدد، _ و . باشد.")]
-    public string Username { get; set; } = string.Empty;
+    [Required(ErrorMessage = "شماره موبایل الزامی است.")]
+    public string Phone { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "کد تأیید الزامی است.")]
+    [StringLength(6, MinimumLength = 6, ErrorMessage = "کد تأیید باید ۶ رقم باشد.")]
+    public string Code { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "رمز عبور الزامی است.")]
     [StringLength(100, MinimumLength = 8,
@@ -18,26 +30,52 @@ public class RegisterDto
 
     [StringLength(100)]
     public string? FullName { get; set; }
-
-    [RegularExpression("^[0-9۰-۹+\\-\\s]{7,20}$",
-        ErrorMessage = "شماره تلفن معتبر نیست.")]
-    public string? Phone { get; set; }
 }
 
 public class LoginDto
 {
-    [Required(ErrorMessage = "نام کاربری الزامی است.")]
+    // نام کاربری ادمین/مالک یا شماره موبایل مشتری
+    [Required(ErrorMessage = "نام کاربری یا موبایل الزامی است.")]
     public string Username { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "رمز عبور الزامی است.")]
     public string Password { get; set; } = string.Empty;
 }
 
+public class LoginOtpDto
+{
+    [Required(ErrorMessage = "شماره موبایل الزامی است.")]
+    public string Phone { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "کد تأیید الزامی است.")]
+    [StringLength(6, MinimumLength = 6, ErrorMessage = "کد تأیید باید ۶ رقم باشد.")]
+    public string Code { get; set; } = string.Empty;
+}
+
+public class ResetPasswordDto
+{
+    [Required(ErrorMessage = "شماره موبایل الزامی است.")]
+    public string Phone { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "کد تأیید الزامی است.")]
+    [StringLength(6, MinimumLength = 6, ErrorMessage = "کد تأیید باید ۶ رقم باشد.")]
+    public string Code { get; set; } = string.Empty;
+
+    [Required(ErrorMessage = "رمز عبور جدید الزامی است.")]
+    [StringLength(100, MinimumLength = 8,
+        ErrorMessage = "رمز عبور باید حداقل ۸ کاراکتر باشد.")]
+    public string NewPassword { get; set; } = string.Empty;
+}
+
+public record SendOtpResponse(string Message, int ExpiresInSeconds, string? DevCode);
+
 public record UserDto(int Id, string Username, string? FullName, string? Phone, string Role, string[] Permissions)
 {
     public static UserDto From(AppUser user) =>
         new(user.Id, user.Username, user.FullName, user.Phone, user.Role,
-            user.Role == Roles.Owner ? AdminPermissions.All.Select(p => p.Key).ToArray() : AdminPermissions.Parse(user.PermissionsJson));
+            user.Role == Roles.Owner
+                ? AdminPermissions.All.Select(p => p.Key).ToArray()
+                : AdminPermissions.Parse(user.PermissionsJson));
 }
 
 public record AuthResponse(string Token, UserDto User);
