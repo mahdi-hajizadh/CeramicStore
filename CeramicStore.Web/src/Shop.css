@@ -1,28 +1,24 @@
 /* =========================
-   Shop pages — Apple-like
+   Shop pages — Apple tokens
 ========================= */
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
 
 .header-link,
 .cart-link {
   position: relative;
-  padding: 4px 2px;
+  padding: var(--spacing-4) 2px;
   border: 0;
   background: none;
-  color: rgb(255 255 255 / 80%);
-  font-size: 12px;
-  font-weight: 400;
+  color: rgb(245 245 247 / 80%);
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  letter-spacing: var(--tracking-caption);
+  font-weight: var(--font-weight-regular);
   transition: color 180ms var(--ease);
 }
 
 .header-link:hover,
 .cart-link:hover {
-  color: #fff;
+  color: var(--color-pure-white);
 }
 
 .cart-badge {
@@ -31,50 +27,52 @@
   justify-content: center;
   min-width: 18px;
   height: 18px;
-  margin-inline-start: 5px;
+  margin-inline-start: var(--spacing-4);
   padding: 0 5px;
-  border-radius: var(--radius-pill);
-  background: var(--accent);
-  color: #fff;
+  border-radius: var(--radius-tags);
+  background: var(--color-iris-blue);
+  color: var(--color-pure-white);
   font-size: 10px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .shop-page {
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 22px;
+  gap: var(--spacing-20);
   width: 100%;
-  padding: 48px 0 56px;
+  padding: var(--spacing-40) 0 var(--spacing-60);
 }
 
 .shop-page h1 {
   margin: 0;
-  color: var(--ink);
-  font-size: clamp(28px, 4vw, 40px);
-  font-weight: 600;
-  letter-spacing: -0.025em;
+  color: var(--color-obsidian);
+  font-family: var(--font-sf-pro-display);
+  font-size: clamp(28px, 4vw, var(--text-heading));
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-heading);
   line-height: 1.15;
 }
 
 .shop-page h2 {
-  margin: 0 0 14px;
-  color: var(--ink);
-  font-size: 21px;
-  font-weight: 600;
-  letter-spacing: -0.015em;
+  margin: 0 0 var(--spacing-12);
+  color: var(--color-obsidian);
+  font-family: var(--font-sf-pro-display);
+  font-size: var(--text-subheading);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-subheading);
 }
 
 .shop-page h3 {
-  color: var(--ink);
-  font-weight: 600;
+  color: var(--color-obsidian);
+  font-weight: var(--font-weight-semibold);
 }
 
 .muted {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.55;
+  color: var(--color-pewter);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .message.success {
@@ -84,15 +82,14 @@
 
 .link-button {
   align-self: flex-start;
-  padding: 6px 2px;
+  padding: var(--spacing-8) 2px;
   border: 0;
   background: none;
-  color: var(--accent);
+  color: var(--color-iris-blue);
   font-size: 14px;
 }
 
 .link-button:hover {
-  color: var(--accent-hover);
   text-decoration: underline;
 }
 
@@ -102,10 +99,10 @@
 .cart-item,
 .about-card,
 .order-card {
-  padding: 24px;
+  padding: var(--spacing-24);
   border: 0;
   border-radius: 20px;
-  background: var(--bg-gray);
+  background: var(--surface-canvas);
   box-shadow: none;
 }
 
@@ -114,14 +111,14 @@
 .cart-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 24px;
+  gap: var(--spacing-24);
   align-items: start;
 }
 
 .cart-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--element-gap);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -130,9 +127,9 @@
 .cart-item {
   display: grid;
   grid-template-columns: 96px minmax(0, 1fr) 140px 140px;
-  gap: 18px;
+  gap: var(--spacing-16);
   align-items: center;
-  background: var(--bg-gray);
+  background: var(--surface-canvas);
 }
 
 .cart-item-image {
@@ -140,7 +137,7 @@
   width: 96px;
   height: 96px;
   border-radius: 16px;
-  background: #e8e8ed;
+  background: var(--color-ash-veil);
 }
 
 .cart-item-image img {
@@ -150,7 +147,7 @@
 }
 
 .cart-item-info h3 {
-  margin: 4px 0;
+  margin: var(--spacing-4) 0;
   font-size: 16px;
   letter-spacing: -0.01em;
 }
@@ -159,15 +156,15 @@
 .cart-item-total {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-8);
 }
 
 .cart-item-qty label,
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  color: var(--muted);
+  gap: var(--spacing-8);
+  color: var(--color-pewter);
   font-size: 13px;
 }
 
@@ -184,12 +181,10 @@
   min-height: 44px;
   padding: 10px 16px;
   border: 1px solid transparent;
-  border-radius: var(--radius-pill);
-  background: #fff;
-  color: var(--text);
-  transition:
-    border-color 180ms var(--ease),
-    box-shadow 180ms var(--ease);
+  border-radius: var(--radius-buttons);
+  background: var(--color-pure-white);
+  color: var(--color-obsidian);
+  transition: border-color 180ms var(--ease), box-shadow 180ms var(--ease);
 }
 
 .form-field textarea,
@@ -208,16 +203,16 @@
 .shop-page select:focus,
 .shop-page textarea:focus {
   outline: none;
-  border-color: var(--accent);
+  border-color: var(--color-iris-blue);
   box-shadow: 0 0 0 3px rgb(0 113 227 / 18%);
 }
 
 .cart-summary {
   position: sticky;
-  top: calc(var(--header-h) + 16px);
+  top: calc(var(--header-h) + var(--spacing-16));
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--element-gap);
 }
 
 .cart-summary .primary-button {
@@ -228,42 +223,40 @@
 .summary-items li {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--spacing-12);
   font-size: 14px;
 }
 
 .summary-items {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--spacing-8);
   margin: 0;
   padding: 0;
   list-style: none;
-  color: var(--muted);
+  color: var(--color-pewter);
 }
 
 .checkout-main {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--spacing-20);
 }
 
 .address-option {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-  padding: 16px;
-  margin-bottom: 10px;
+  gap: var(--spacing-12);
+  padding: var(--spacing-16);
+  margin-bottom: var(--spacing-8);
   border: 1px solid transparent;
   border-radius: 16px;
-  background: #fff;
+  background: var(--color-pure-white);
   font-size: 13px;
-  line-height: 1.7;
+  line-height: 1.6;
   cursor: pointer;
-  transition:
-    border-color 180ms var(--ease),
-    box-shadow 180ms var(--ease);
+  transition: border-color 180ms var(--ease), box-shadow 180ms var(--ease);
 }
 
 .address-option input {
@@ -275,15 +268,15 @@
 }
 
 .address-option:has(input:checked) {
-  border-color: var(--accent);
+  border-color: var(--color-iris-blue);
   box-shadow: 0 0 0 3px rgb(0 113 227 / 12%);
 }
 
 .address-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  margin: 14px 0;
+  gap: var(--element-gap);
+  margin: var(--spacing-12) 0;
 }
 
 .form-field-wide {
@@ -293,15 +286,15 @@
 .check-field {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--spacing-8);
   font-size: 13px;
-  color: var(--muted);
+  color: var(--color-pewter);
 }
 
 .form-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--spacing-16);
 }
 
 /* ----- Auth ----- */
@@ -313,18 +306,18 @@
 .auth-card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-16);
   width: 100%;
   max-width: 420px;
   margin-inline: auto;
-  padding: 32px;
-  background: var(--bg-gray);
+  padding: var(--spacing-40);
+  background: var(--surface-canvas);
 }
 
 .auth-card form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-16);
 }
 
 .auth-card .primary-button {
@@ -335,40 +328,38 @@
 .auth-tabs {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4px;
-  padding: 4px;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4);
   border: 0;
-  border-radius: var(--radius-pill);
-  background: #e8e8ed;
+  border-radius: var(--radius-buttons);
+  background: var(--color-ash-veil);
 }
 
 .auth-tabs button {
   min-height: 36px;
   border: 0;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-buttons);
   background: transparent;
-  color: var(--muted);
+  color: var(--color-pewter);
   font-size: 13px;
-  font-weight: 500;
-  transition:
-    background 180ms var(--ease),
-    color 180ms var(--ease);
+  font-weight: var(--font-weight-regular);
+  transition: background 180ms var(--ease), color 180ms var(--ease);
 }
 
 .auth-tabs button.is-active {
-  background: #fff;
-  color: var(--ink);
+  background: var(--color-pure-white);
+  color: var(--color-obsidian);
   box-shadow: var(--shadow-sm);
 }
 
 .auth-inline-links {
-  margin: -4px 0 0;
+  margin: calc(var(--spacing-4) * -1) 0 0;
   text-align: left;
   font-size: 13px;
 }
 
 .auth-inline-links a {
-  color: var(--accent);
+  color: var(--color-iris-blue);
 }
 
 .auth-inline-links a:hover {
@@ -381,25 +372,25 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--spacing-16);
 }
 
 .account-profile {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: 28px;
+  gap: var(--spacing-20);
+  padding: var(--spacing-24);
   border-radius: 24px;
   background:
     radial-gradient(120% 160% at 100% 0%, rgb(0 113 227 / 10%), transparent 55%),
-    var(--bg-gray);
+    var(--surface-canvas);
 }
 
 .account-profile-main {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: var(--spacing-16);
   min-width: 0;
 }
 
@@ -410,10 +401,11 @@
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: linear-gradient(160deg, #0071e3, #1d1d1f);
-  color: #fff;
+  background: linear-gradient(160deg, var(--color-iris-blue), var(--color-obsidian));
+  color: var(--color-pure-white);
+  font-family: var(--font-sf-pro-display);
   font-size: 22px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   letter-spacing: -0.02em;
   direction: ltr;
 }
@@ -423,17 +415,17 @@
 }
 
 .account-profile-copy h1 {
-  margin: 0 0 6px;
-  font-size: clamp(24px, 3vw, 32px);
+  margin: 0 0 var(--spacing-8);
+  font-size: clamp(24px, 3vw, var(--text-heading-sm));
 }
 
 .account-profile-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px 10px;
+  gap: var(--spacing-8) var(--spacing-12);
   margin: 0;
-  color: var(--muted);
+  color: var(--color-pewter);
   font-size: 14px;
 }
 
@@ -442,82 +434,101 @@
   align-items: center;
   min-height: 28px;
   padding: 2px 12px;
-  border-radius: 980px;
-  background: #fff;
-  color: var(--ink);
-  font-size: 12px;
-  font-weight: 500;
+  border-radius: var(--radius-tags);
+  background: var(--color-pure-white);
+  color: var(--color-obsidian);
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-regular);
 }
 
-.account-logout {
+.account-profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-8);
+  flex-shrink: 0;
+}
+
+.account-logout,
+.account-edit {
   flex-shrink: 0;
   min-height: 36px;
-  padding: 8px 16px;
-  border: 1px solid var(--border);
-  border-radius: 980px;
-  background: #fff;
-  color: var(--ink);
+  padding: var(--spacing-8) var(--spacing-16);
+  border: 1px solid var(--color-pale-mist);
+  border-radius: var(--radius-buttons);
+  background: var(--color-pure-white);
+  color: var(--color-obsidian);
   font-size: 13px;
-  font-weight: 500;
-  transition:
-    background 180ms var(--ease),
-    border-color 180ms var(--ease);
+  font-weight: var(--font-weight-regular);
+  transition: background 180ms var(--ease), border-color 180ms var(--ease);
+}
+
+.account-edit {
+  border-color: transparent;
+  background: var(--color-iris-blue);
+  color: var(--color-pure-white);
+}
+
+.account-edit:hover {
+  background: var(--color-sky-signal);
+  color: var(--color-pure-white);
+  text-decoration: none;
 }
 
 .account-logout:hover {
   background: var(--surface-hover);
-  border-color: #b0b0b5;
+  border-color: var(--color-silver);
   text-decoration: none;
-  color: var(--ink);
+  color: var(--color-obsidian);
+}
+
+.account-edit-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--element-gap);
+}
+
+.account-edit-card .form-field input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background: var(--color-ash-veil);
 }
 
 .account-empty {
   display: grid;
   place-items: center;
-  gap: 8px;
+  gap: var(--spacing-8);
   min-height: 120px;
-  padding: 28px 16px;
+  padding: var(--spacing-24) var(--spacing-16);
   text-align: center;
 }
 
 .account-empty strong {
-  color: var(--ink);
+  color: var(--color-obsidian);
   font-size: 15px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 .account-empty p {
   margin: 0;
-  color: var(--muted);
+  color: var(--color-pewter);
   font-size: 13px;
   line-height: 1.5;
-}
-
-@media (max-width: 600px) {
-  .account-profile {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 22px;
-  }
-
-  .account-logout {
-    width: 100%;
-  }
 }
 
 .order-card {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 20px;
-  margin-bottom: 12px;
+  gap: var(--spacing-12);
+  padding: var(--spacing-20);
+  margin-bottom: var(--spacing-12);
 }
 
 .order-card header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: var(--spacing-12);
 }
 
 .order-card h2,
@@ -531,11 +542,11 @@
   justify-content: center;
   min-height: 26px;
   padding: 3px 12px;
-  border-radius: var(--radius-pill);
-  background: #e8e8ed;
-  color: #6e6e73;
-  font-size: 12px;
-  font-weight: 500;
+  border-radius: var(--radius-tags);
+  background: var(--color-ash-veil);
+  color: var(--color-slate);
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-regular);
 }
 
 .status-Pending {
@@ -545,7 +556,7 @@
 
 .status-Processing {
   background: #e8f2fc;
-  color: #0066cc;
+  color: var(--color-sapphire);
 }
 
 .status-Shipped {
@@ -555,37 +566,38 @@
 
 .status-Delivered {
   background: #e8f8ea;
-  color: #008009;
+  color: var(--success);
 }
 
 .status-Cancelled {
   background: #fff2eb;
-  color: #bf4800;
+  color: var(--danger);
 }
 
 /* ----- Gallery & about ----- */
 
 .gallery-section,
 .about-section {
-  padding: 88px max(22px, calc(50vw - 490px)) 40px;
-  background: var(--bg-gray);
+  padding: var(--section-gap) max(var(--spacing-24), calc(50vw - 490px))
+    var(--spacing-40);
+  background: var(--surface-canvas);
 }
 
 .about-section {
-  padding-bottom: 88px;
-  background: var(--bg);
+  padding-bottom: var(--section-gap);
+  background: var(--surface-pure-white);
 }
 
 .gallery-section .section-heading,
 .about-section .section-heading {
-  max-width: 980px;
+  max-width: var(--page-max-width);
 }
 
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-  max-width: 980px;
+  gap: var(--spacing-16);
+  max-width: var(--page-max-width);
   margin-inline: auto;
 }
 
@@ -594,8 +606,7 @@
   margin: 0;
   border: 0;
   border-radius: 20px;
-  background: #fff;
-  box-shadow: none;
+  background: var(--color-pure-white);
 }
 
 .gallery-item img {
@@ -603,7 +614,7 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  transition: transform 500ms var(--ease-out);
+  transition: transform 420ms var(--ease-out);
 }
 
 .gallery-item:hover img {
@@ -611,46 +622,46 @@
 }
 
 .gallery-item figcaption {
-  padding: 14px 18px;
-  color: var(--muted);
+  padding: var(--spacing-12) var(--spacing-16);
+  color: var(--color-pewter);
   font-size: 13px;
 }
 
 .about-card {
-  max-width: 980px;
+  max-width: var(--page-max-width);
   margin-inline: auto;
-  background: var(--bg-gray);
+  background: var(--surface-canvas);
 }
 
 .about-card p {
-  margin: 0 0 20px;
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.5;
+  margin: 0 0 var(--spacing-20);
+  color: var(--color-pewter);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
 }
 
 .about-card dl {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  gap: var(--spacing-20);
   margin: 0;
 }
 
 .about-card dt {
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 600;
+  color: var(--color-pewter);
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-semibold);
 }
 
 .about-card dd {
-  margin: 4px 0 0;
+  margin: var(--spacing-4) 0 0;
   font-size: 15px;
   line-height: 1.5;
-  color: var(--ink);
+  color: var(--color-obsidian);
 }
 
 .about-card a {
-  color: var(--accent);
+  color: var(--color-iris-blue);
 }
 
 .about-card a:hover {
@@ -660,7 +671,7 @@
 .add-to-cart {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-12);
 }
 
 .add-to-cart .primary-button {
@@ -689,24 +700,19 @@
     grid-template-columns: 1fr;
   }
 
-  .header-actions {
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
   .gallery-section,
   .about-section {
-    padding-inline: 20px;
+    padding-inline: var(--spacing-20);
   }
 }
 
 @media (max-width: 600px) {
   .shop-page {
-    padding: 32px 0 64px;
+    padding: var(--spacing-24) 0 var(--spacing-48);
   }
 
   .auth-card {
-    padding: 24px;
+    padding: var(--spacing-24);
   }
 
   .panel-card,
@@ -714,6 +720,22 @@
   .cart-item,
   .about-card,
   .order-card {
-    padding: 18px;
+    padding: var(--spacing-16);
+  }
+
+  .account-profile {
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--spacing-20);
+  }
+
+  .account-profile-actions,
+  .account-logout,
+  .account-edit {
+    width: 100%;
+  }
+
+  .account-profile-actions {
+    flex-direction: column;
   }
 }

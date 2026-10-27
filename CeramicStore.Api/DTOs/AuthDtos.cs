@@ -67,6 +67,18 @@ public class ResetPasswordDto
     public string NewPassword { get; set; } = string.Empty;
 }
 
+public class UpdateProfileDto
+{
+    [StringLength(100, ErrorMessage = "نام نباید بیشتر از ۱۰۰ کاراکتر باشد.")]
+    public string? FullName { get; set; }
+
+    [StringLength(100, MinimumLength = 8,
+        ErrorMessage = "رمز عبور جدید باید حداقل ۸ کاراکتر باشد.")]
+    public string? NewPassword { get; set; }
+
+    public string? CurrentPassword { get; set; }
+}
+
 public record SendOtpResponse(string Message, int ExpiresInSeconds, string? DevCode);
 
 public record UserDto(int Id, string Username, string? FullName, string? Phone, string Role, string[] Permissions)

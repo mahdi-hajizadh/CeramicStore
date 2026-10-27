@@ -216,4 +216,39 @@ public class AuthController : ControllerBase
 
         return Ok(UserDto.From(user));
     }
+
+    // PUT: api/auth/me  (ویرایش نام و رمز)
+    [HttpPut("me")]
+    [Authorize]
+    public async Task<ActionResult<UserDto>> UpdateProfile(
+        UpdateProfileDto dto,
+        CancellationToken cancellationToken)
+    {
+        var userId = User.GetUserId();
+
+        var user = await _context.Users
+            .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+
+        if (user is null)
+            return Unauthorized();
+
+        user.FullName = string.IsNullOrWhiteSpace(dto.FullName) ? null : dto.FullName.Trim();
+
+        if (!string.IsNullOrEmpty(dto.NewPassword))
+        {
+            if (string.IsNullOrEmpty(dto.CurrentPassword))
+                return BadRequest("برای تغییر رمز، رمز فعلی لازم است.");
+
+            var check = _hasher.VerifyHashedPassword(user, user.PasswordHash, dto.CurrentPassword);
+
+            if (check == PasswordVerificationResult.Failed)
+                return BadRequest("رمز فعلی نادرست است.");
+
+            user.PasswordHash = _hasher.HashPassword(user, dto.NewPassword);
+        }
+
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return Ok(UserDto.From(user));
+    }
 }

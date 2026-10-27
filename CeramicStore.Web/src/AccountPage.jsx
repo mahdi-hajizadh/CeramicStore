@@ -12,7 +12,7 @@ import {
 } from "./utils.js";
 
 function AccountPage() {
-  const { user, logout } = useAuth();
+  const { user, logout, updateProfile } = useAuth();
   const location = useLocation();
   const placedOrderId = location.state?.placedOrderId;
 
@@ -21,10 +21,26 @@ function AccountPage() {
   const [loaded, setLoaded] = useState(false);
   const [reloadToken, setReloadToken] = useState(0);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
   const [form, setForm] = useState(emptyAddress);
+  const [profileForm, setProfileForm] = useState({
+    fullName: user?.fullName ?? "",
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [profileBusy, setProfileBusy] = useState(false);
 
   const refresh = useCallback(() => setReloadToken((token) => token + 1), []);
+
+  useEffect(() => {
+    setProfileForm((current) => ({
+      ...current,
+      fullName: user?.fullName ?? "",
+    }));
+  }, [user?.fullName]);
 
   useEffect(() => {
     let cancelled = false;
@@ -56,6 +72,7 @@ function AccountPage() {
   async function handleAddAddress(event) {
     event.preventDefault();
     setError("");
+    setSuccess("");
 
     const problem = validateAddress(form);
 
@@ -96,6 +113,54 @@ function AccountPage() {
     }
   }
 
+  async function handleUpdateProfile(event) {
+    event.preventDefault();
+    setError("");
+    setSuccess("");
+
+    if (profileForm.newPassword) {
+      if (profileForm.newPassword.length < 8) {
+        setError("رمز عبور جدید باید حداقل ۸ کاراکتر باشد.");
+        return;
+      }
+
+      if (profileForm.newPassword !== profileForm.confirmPassword) {
+        setError("رمز جدید و تکرار آن یکسان نیستند.");
+        return;
+      }
+
+      if (!profileForm.currentPassword) {
+        setError("برای تغییر رمز، رمز فعلی را وارد کن.");
+        return;
+      }
+    }
+
+    setProfileBusy(true);
+
+    try {
+      await updateProfile({
+        fullName: profileForm.fullName.trim() || null,
+        currentPassword: profileForm.newPassword
+          ? profileForm.currentPassword
+          : null,
+        newPassword: profileForm.newPassword || null,
+      });
+
+      setSuccess("حساب با موفقیت به‌روزرسانی شد.");
+      setProfileForm((current) => ({
+        ...current,
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      }));
+      setShowEdit(false);
+    } catch (err) {
+      setError(err.message || "ویرایش حساب ناموفق بود.");
+    } finally {
+      setProfileBusy(false);
+    }
+  }
+
   const displayName = user.fullName?.trim() || "حساب مشتری";
   const phoneOrUser = user.phone || user.username;
   const nameParts = (user.fullName?.trim() || "")
@@ -123,15 +188,122 @@ function AccountPage() {
           </div>
         </div>
 
-        <button type="button" className="account-logout" onClick={logout}>
-          خروج از حساب
-        </button>
+        <div className="account-profile-actions">
+          <button
+            type="button"
+            className="account-edit"
+            onClick={() => {
+              setShowEdit((open) => !open);
+              setError("");
+              setSuccess("");
+            }}
+          >
+            {showEdit ? "بستن ویرایش" : "ویرایش حساب"}
+          </button>
+          <button type="button" className="account-logout" onClick={logout}>
+            خروج از حساب
+          </button>
+        </div>
       </div>
+
+      {showEdit && (
+        <form className="panel-card account-edit-card" onSubmit={handleUpdateProfile}>
+          <h2>ویرایش حساب</h2>
+          <p className="muted">نام نمایشی را عوض کن یا در صورت نیاز رمز جدید بگذار.</p>
+
+          <label className="form-field">
+            <span>نام و نام خانوادگی</span>
+            <input
+              value={profileForm.fullName}
+              onChange={(event) =>
+                setProfileForm((current) => ({
+                  ...current,
+                  fullName: event.target.value,
+                }))
+              }
+              autoComplete="name"
+              maxLength={100}
+            />
+          </label>
+
+          <label className="form-field">
+            <span>شماره موبایل</span>
+            <input value={phoneOrUser} dir="ltr" disabled />
+          </label>
+
+          <label className="form-field">
+            <span>رمز فعلی (فقط برای تغییر رمز)</span>
+            <input
+              type="password"
+              value={profileForm.currentPassword}
+              onChange={(event) =>
+                setProfileForm((current) => ({
+                  ...current,
+                  currentPassword: event.target.value,
+                }))
+              }
+              autoComplete="current-password"
+              dir="ltr"
+            />
+          </label>
+
+          <label className="form-field">
+            <span>رمز جدید</span>
+            <input
+              type="password"
+              value={profileForm.newPassword}
+              onChange={(event) =>
+                setProfileForm((current) => ({
+                  ...current,
+                  newPassword: event.target.value,
+                }))
+              }
+              autoComplete="new-password"
+              dir="ltr"
+            />
+          </label>
+
+          <label className="form-field">
+            <span>تکرار رمز جدید</span>
+            <input
+              type="password"
+              value={profileForm.confirmPassword}
+              onChange={(event) =>
+                setProfileForm((current) => ({
+                  ...current,
+                  confirmPassword: event.target.value,
+                }))
+              }
+              autoComplete="new-password"
+              dir="ltr"
+            />
+          </label>
+
+          <div className="form-actions">
+            <button type="submit" className="primary-button" disabled={profileBusy}>
+              {profileBusy ? "در حال ذخیره..." : "ذخیره تغییرات"}
+            </button>
+            <button
+              type="button"
+              className="link-button"
+              onClick={() => setShowEdit(false)}
+            >
+              انصراف
+            </button>
+          </div>
+        </form>
+      )}
 
       {placedOrderId && (
         <p className="message success" role="status">
           سفارش شماره {formatNumber(placedOrderId)} با موفقیت ثبت شد. فروشگاه برای هماهنگی
           پرداخت و ارسال با شما تماس می‌گیرد.
+        </p>
+      )}
+
+      {success && (
+        <p className="message success" role="status">
+          {success}
         </p>
       )}
 
