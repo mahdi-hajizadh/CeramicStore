@@ -1,4 +1,4 @@
-/* CeramicStore — base reset & design tokens */
+/* CeramicStore — Apple-inspired design system */
 
 *,
 *::before,
@@ -9,41 +9,54 @@
 :root {
   color-scheme: light;
   direction: rtl;
-  font-family: "Vazirmatn Variable", Vazirmatn, Tahoma, sans-serif;
+  font-family:
+    "Vazirmatn Variable",
+    Vazirmatn,
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Text",
+    "Segoe UI",
+    Tahoma,
+    sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   font-optical-sizing: auto;
   scroll-behavior: smooth;
 
-  /* Cool stone showroom + celadon glaze accent */
-  --bg: #eef2f3;
-  --bg-deep: #e2e8eb;
+  --bg: #ffffff;
+  --bg-gray: #f5f5f7;
   --surface: #ffffff;
-  --surface-soft: #f6f8f9;
-  --surface-hover: #edf2f3;
-  --border: #cfd8dc;
-  --border-strong: #b0bec5;
+  --surface-soft: #f5f5f7;
+  --surface-hover: #e8e8ed;
+  --border: #d2d2d7;
+  --border-soft: #e8e8ed;
 
-  --text: #152028;
-  --muted: #5a6b74;
-  --ink: #0e171d;
+  --text: #1d1d1f;
+  --muted: #86868b;
+  --ink: #1d1d1f;
 
-  --accent: #1f6b66;
-  --accent-light: #2f8a84;
-  --accent-soft: #d5ebe8;
-  --accent-deep: #154f4b;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --accent-soft: #e8f2fc;
+  --accent-deep: #0066cc;
 
   --gold: var(--accent);
-  --gold-light: var(--accent-light);
+  --gold-light: var(--accent-hover);
 
-  --danger: #c24747;
-  --success: #2d7a52;
-  --radius: 14px;
-  --radius-sm: 10px;
-  --shadow-sm: 0 4px 18px rgb(14 23 29 / 5%);
-  --shadow-md: 0 16px 42px rgb(14 23 29 / 9%);
-  --header-h: 84px;
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --danger: #bf4800;
+  --success: #008009;
+
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-pill: 980px;
+
+  --shadow-sm: 0 2px 8px rgb(0 0 0 / 4%);
+  --shadow-md: 0 8px 28px rgb(0 0 0 / 8%);
+
+  --header-h: 48px;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
   color: var(--text);
   background: var(--bg);
@@ -52,18 +65,18 @@
 html {
   overflow-y: scroll;
   scrollbar-gutter: stable;
-  scroll-padding-top: calc(var(--header-h) + 12px);
+  scroll-padding-top: calc(var(--header-h) + 16px);
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background:
-    radial-gradient(1200px 500px at 100% -10%, #d5ebe880, transparent 55%),
-    radial-gradient(900px 420px at -5% 20%, #cfdde580, transparent 50%),
-    linear-gradient(180deg, #f4f7f8 0%, var(--bg) 40%, var(--bg-deep) 100%);
+  background: var(--bg);
   color: var(--text);
+  line-height: 1.47059;
+  font-weight: 400;
+  letter-spacing: -0.022em;
 }
 
 #root {

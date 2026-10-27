@@ -103,9 +103,14 @@ function App() {
             زیباتر و ماندگارتر.
           </p>
 
-          <a href="#products" className="primary-button">
-            مشاهده محصولات
-          </a>
+          <div className="hero-actions">
+            <a href="#products" className="primary-button">
+              مشاهده محصولات
+            </a>
+            <a href="#about" className="text-link">
+              تماس با ما
+            </a>
+          </div>
         </div>
 
         <div className="hero-decoration" aria-hidden="true">
