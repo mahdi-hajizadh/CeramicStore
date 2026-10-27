@@ -96,18 +96,34 @@ function AccountPage() {
     }
   }
 
+  const displayName = user.fullName?.trim() || "حساب مشتری";
+  const phoneOrUser = user.phone || user.username;
+  const nameParts = (user.fullName?.trim() || "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2);
+  const initials =
+    nameParts.map((part) => part[0]).join("") ||
+    (phoneOrUser ? String(phoneOrUser).slice(-2) : "م");
+
   return (
     <section className="shop-page">
-      <div className="account-heading">
-        <div>
-          <h1>حساب من</h1>
-          <p className="muted">
-            {user.fullName ? `${user.fullName} · ` : ""}
-            <span dir="ltr">{user.username}</span>
-          </p>
+      <div className="account-profile">
+        <div className="account-profile-main">
+          <div className="account-avatar" aria-hidden="true">
+            {initials}
+          </div>
+
+          <div className="account-profile-copy">
+            <h1>{displayName}</h1>
+            <p className="account-profile-meta">
+              <span className="account-chip">مشتری</span>
+              <span dir="ltr">{phoneOrUser}</span>
+            </p>
+          </div>
         </div>
 
-        <button type="button" className="link-button" onClick={logout}>
+        <button type="button" className="account-logout" onClick={logout}>
           خروج از حساب
         </button>
       </div>
@@ -131,7 +147,10 @@ function AccountPage() {
         {!loaded && <p className="muted">در حال دریافت...</p>}
 
         {loaded && orders.length === 0 && (
-          <p className="muted">هنوز سفارشی ثبت نکرده‌ای.</p>
+          <div className="account-empty">
+            <strong>هنوز سفارشی نداری</strong>
+            <p>وقتی از فروشگاه خرید کنی، وضعیت سفارش‌ها اینجا نمایش داده می‌شود.</p>
+          </div>
         )}
 
         {orders.map((order) => (
@@ -194,7 +213,10 @@ function AccountPage() {
         </div>
 
         {loaded && addresses.length === 0 && !showForm && (
-          <p className="muted">آدرسی ذخیره نشده است.</p>
+          <div className="account-empty">
+            <strong>آدرسی ذخیره نشده</strong>
+            <p>آدرس تحویل را اضافه کن تا دفعه بعد سریع‌تر تسویه کنی.</p>
+          </div>
         )}
 
         {addresses.map((address) => (
