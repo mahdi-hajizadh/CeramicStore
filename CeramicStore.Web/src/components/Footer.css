@@ -1,13 +1,44 @@
 .site-footer {
-  --footer-bg: #191d24;
-  --footer-text: #b6bbc5;
+  --footer-text: #c5cad3;
   --footer-heading: #ffffff;
-  --footer-divider: #343943;
-  --footer-accent: #3984ff;
+  --footer-divider: rgb(255 255 255 / 12%);
+  --footer-accent: #64b5ff;
+  position: relative;
+  isolation: isolate;
   margin-top: 48px;
   padding: 48px max(20px, calc(50vw - 600px)) 24px;
-  background: var(--footer-bg);
+  overflow: hidden;
   color: var(--footer-text);
+  background:
+    linear-gradient(180deg, rgb(20 24 32 / 72%) 0%, rgb(14 16 22 / 82%) 100%);
+  border-top: 1px solid var(--glass-dark-border);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 8%);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: -40% 40% auto -10%;
+  width: min(560px, 80vw);
+  height: min(560px, 80vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(10 132 255 / 28%), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.site-footer::after {
+  content: "";
+  position: absolute;
+  inset: auto -10% -45% 35%;
+  width: min(480px, 70vw);
+  height: min(480px, 70vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(90 200 250 / 18%), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .footer-container {
@@ -44,8 +75,10 @@
 .footer-brand__logo {
   width: 44px;
   height: 44px;
-  border-radius: 10px;
+  border-radius: 12px;
   object-fit: cover;
+  border: 1px solid rgb(255 255 255 / 18%);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 25%);
 }
 
 .footer-brand__name {
@@ -156,9 +189,18 @@
   place-items: center;
   width: 34px;
   height: 34px;
-  border: 1px solid var(--footer-divider);
+  border: 1px solid rgb(255 255 255 / 16%);
   border-radius: 999px;
+  background: rgb(255 255 255 / 6%);
   color: var(--footer-text);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.footer-social:hover {
+  background: rgb(10 132 255 / 18%);
+  border-color: rgb(100 181 255 / 40%);
 }
 
 @media (max-width: 900px) {

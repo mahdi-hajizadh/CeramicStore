@@ -4,22 +4,27 @@ import "../Shop.css";
 import { homePathFor } from "../auth/paths.js";
 import { useAuth } from "../auth/useAuth.js";
 import { useCart } from "../cart/useCart.js";
+import { useSettings } from "../settings/useSettings.js";
 import { formatNumber } from "../utils.js";
 import Footer from "./Footer.jsx";
 
 function StoreLayout() {
   const { user } = useAuth();
   const { count } = useCart();
+  const { settings } = useSettings();
+  const storeName = settings.storeName || "CeramicStore";
+  const headerTagline =
+    settings.content?.headerTagline || "مرجع تخصصی کاشی و سرامیک";
 
   return (
     <div className="store">
       <header className="store-header">
         <div className="header-start">
-          <Link className="header-brand" to="/" aria-label="CeramicStore">
+          <Link className="header-brand" to="/" aria-label={storeName}>
             <img className="brand-logo" src="/logo.jpg" alt="" width={36} height={36} />
             <span className="brand-copy">
-              <strong>CeramicStore</strong>
-              <small>مرجع تخصصی کاشی و سرامیک</small>
+              <strong>{storeName}</strong>
+              <small>{headerTagline}</small>
             </span>
           </Link>
 

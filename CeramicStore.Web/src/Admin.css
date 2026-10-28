@@ -243,6 +243,53 @@
   letter-spacing: -0.02em;
 }
 
+.admin-panel-note {
+  margin: 8px 0 0;
+  color: var(--admin-muted);
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 46rem;
+}
+
+.site-cms-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-20);
+}
+
+.site-cms-section {
+  margin: 0;
+  padding: var(--spacing-20);
+  border: 1px solid var(--admin-border);
+  border-radius: 16px;
+  min-width: 0;
+}
+
+.site-cms-section legend {
+  padding-inline: 8px;
+  color: var(--admin-text);
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+}
+
+.site-cms-section .admin-form-grid,
+.site-cms-section .admin-field {
+  margin-top: var(--spacing-12);
+}
+
+.site-cms-card-editor {
+  margin-top: var(--spacing-16);
+  padding-top: var(--spacing-12);
+  border-top: 1px solid var(--admin-border);
+}
+
+.site-cms-card-editor h4 {
+  margin: 0 0 var(--spacing-8);
+  color: var(--admin-gold);
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+}
+
 .admin-cancel-button {
   padding: 8px 14px;
   border: 1px solid var(--admin-border);

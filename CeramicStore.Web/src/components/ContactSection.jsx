@@ -26,6 +26,7 @@ function ContactSection() {
   const workingHours = settings.workingHours || FALLBACKS.workingHours;
   const instagram = settings.instagram || FALLBACKS.instagram;
   const igHref = instagramUrl(instagram);
+  const copy = settings.content?.contact;
 
   const items = [
     {
@@ -66,11 +67,15 @@ function ContactSection() {
     <section className="contact-section" id="about" aria-labelledby="contact-heading">
       <div className="contact-section__inner">
         <header className="contact-section__header">
-          <span className="contact-section__eyebrow">CONTACT</span>
-          <h2 id="contact-heading">تماس و آدرس فروشگاه</h2>
+          <span className="contact-section__eyebrow">
+            {copy?.eyebrow || "CONTACT"}
+          </span>
+          <h2 id="contact-heading">
+            {copy?.heading || "تماس و آدرس فروشگاه"}
+          </h2>
           <p>
-            برای دریافت اطلاعات بیشتر درباره محصولات و سفارش‌ها با ما در ارتباط
-            باشید.
+            {copy?.intro ||
+              "برای دریافت اطلاعات بیشتر درباره محصولات و سفارش‌ها با ما در ارتباط باشید."}
           </p>
         </header>
 

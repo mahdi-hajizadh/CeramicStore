@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 using CeramicStore.Api.Models;
+using CeramicStore.Api.Services;
 
 namespace CeramicStore.Api.DTOs;
 
@@ -30,6 +32,33 @@ public class UpdateSettingsDto
 
     [StringLength(100)]
     public string? Instagram { get; set; }
+
+    // شیء محتوای ویترین؛ در سرور به ContentJson تبدیل می‌شود
+    public JsonElement? Content { get; set; }
+}
+
+public record SiteSettingsResponseDto(
+    int Id,
+    string StoreName,
+    string Phone,
+    string Address,
+    string? Email,
+    string? WorkingHours,
+    string? About,
+    string? Instagram,
+    SiteContentDocument Content)
+{
+    public static SiteSettingsResponseDto From(SiteSettings settings) =>
+        new(
+            settings.Id,
+            settings.StoreName,
+            settings.Phone,
+            settings.Address,
+            settings.Email,
+            settings.WorkingHours,
+            settings.About,
+            settings.Instagram,
+            SiteContent.Parse(settings.ContentJson));
 }
 
 public class CreateStaffDto

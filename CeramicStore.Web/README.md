@@ -1,14 +1,25 @@
-# CeramicStore — فرانت‌اند
+# CeramicStore Web
 
-React + Vite
+React + Vite storefront for CeramicStore.
+
+## Scripts
 
 ```bash
 npm install
-cp .env.example .env   # در صورت نیاز آدرس بک‌اند را تغییر بده
-npm run dev            # اجرای محیط توسعه
-npm run build          # ساخت نسخه نهایی
+cp .env.example .env
+npm run dev
+npm run build
 npm run lint
 ```
 
-- فروشگاه: `/`
-- پنل مدیریت: `/admin`
+## Environment
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `VITE_API_URL` | Backend origin | `http://localhost:5158` |
+
+## Routes
+
+- Store: `/`
+- Admin: `/admin`
+- Owner: `/owner`

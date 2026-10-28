@@ -1,18 +1,41 @@
 .buying-guide {
-  --guide-accent: #3984ff;
+  --guide-accent: #0a84ff;
+  position: relative;
+  isolation: isolate;
   margin-top: 40px;
-  padding: 36px max(20px, calc(50vw - 600px)) 8px;
-  background: #f7f8fa;
+  padding: 8px max(20px, calc(50vw - 600px)) 8px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.buying-guide::before {
+  content: "";
+  position: absolute;
+  inset: auto auto -30% 0;
+  width: min(480px, 70vw);
+  height: min(480px, 70vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(90 200 250 / 26%), transparent 68%);
+  filter: blur(10px);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .buying-guide__inner {
   max-width: 1200px;
   margin-inline: auto;
+  padding: 28px;
+  border: 1px solid var(--glass-light-border);
+  border-radius: 24px;
+  background: rgb(255 255 255 / 42%);
+  box-shadow: var(--glass-shadow), var(--glass-inset);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 }
 
 .buying-guide__header {
   max-width: 640px;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .buying-guide__header h2 {
@@ -27,7 +50,7 @@
 
 .buying-guide__header p {
   margin: 0;
-  color: #6b7280;
+  color: #5c6675;
   font-size: 15px;
   line-height: 1.7;
 }
@@ -35,7 +58,7 @@
 .buying-guide__grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  gap: 12px;
 }
 
 .guide-card {
@@ -44,17 +67,36 @@
   gap: 10px;
   min-height: 100%;
   padding: 18px;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  background: #ffffff;
-  box-shadow: 0 1px 2px rgb(16 24 40 / 3%);
-  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  border: 1px solid rgb(255 255 255 / 58%);
+  border-radius: 18px;
+  background: linear-gradient(
+    165deg,
+    rgb(255 255 255 / 70%) 0%,
+    rgb(255 255 255 / 42%) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 75%),
+    0 10px 24px rgb(15 23 42 / 6%);
+  backdrop-filter: saturate(170%) blur(16px);
+  -webkit-backdrop-filter: saturate(170%) blur(16px);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease,
+    background 180ms ease;
 }
 
 .guide-card:hover {
-  border-color: #d3e2ff;
-  box-shadow: 0 8px 20px rgb(16 24 40 / 6%);
-  transform: translateY(-1px);
+  border-color: rgb(10 132 255 / 30%);
+  background: linear-gradient(
+    165deg,
+    rgb(255 255 255 / 82%) 0%,
+    rgb(237 245 255 / 58%) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 85%),
+    0 14px 28px rgb(15 23 42 / 10%);
+  transform: translateY(-2px);
 }
 
 .guide-card__icon {
@@ -62,9 +104,11 @@
   place-items: center;
   width: 42px;
   height: 42px;
-  border-radius: 11px;
-  background: #edf3ff;
+  border-radius: 13px;
+  border: 1px solid rgb(255 255 255 / 60%);
+  background: linear-gradient(180deg, #ffffff, #e8f3ff);
   color: var(--guide-accent);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 90%);
 }
 
 .guide-card h3 {
@@ -78,7 +122,7 @@
 .guide-card p {
   margin: 0;
   flex: 1;
-  color: #6b7280;
+  color: #5c6675;
   font-size: 13px;
   line-height: 1.7;
 }
@@ -112,6 +156,11 @@
 @media (max-width: 520px) {
   .buying-guide {
     padding-inline: 16px;
+  }
+
+  .buying-guide__inner {
+    padding: 18px;
+    border-radius: 18px;
   }
 
   .buying-guide__grid {

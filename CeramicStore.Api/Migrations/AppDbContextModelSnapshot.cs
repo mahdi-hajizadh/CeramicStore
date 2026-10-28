@@ -322,6 +322,12 @@ namespace CeramicStore.Api.Migrations
                         .HasMaxLength(400)
                         .HasColumnType("character varying(400)");
 
+                    b.Property<string>("ContentJson")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("{}");
+
                     b.Property<string>("Email")
                         .HasMaxLength(120)
                         .HasColumnType("character varying(120)");
@@ -354,6 +360,7 @@ namespace CeramicStore.Api.Migrations
                             Id = 1,
                             About = "انتخابی مطمئن برای ساختن فضاهای ماندگار.",
                             Address = "مازندران، آمل",
+                            ContentJson = "{}",
                             Phone = "09917933772",
                             StoreName = "CeramicStore",
                             WorkingHours = "شنبه تا پنجشنبه، ۹ صبح تا ۸ شب"

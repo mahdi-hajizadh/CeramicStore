@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { apiJson } from "../api.js";
 import { SettingsContext } from "./SettingsContext.js";
+import { defaultSiteContent, mergeSiteContent } from "./siteContent.js";
 
 const DEFAULT_SETTINGS = {
   storeName: "CeramicStore",
@@ -10,9 +11,19 @@ const DEFAULT_SETTINGS = {
   workingHours: null,
   about: null,
   instagram: null,
+  content: defaultSiteContent(),
 };
 
-// تنظیمات عمومی سایت (شماره تماس، آدرس، ...) و گالری تصاویر فروشگاه
+function normalizeSettings(loaded) {
+  const { content, contentJson, ...rest } = loaded ?? {};
+  return {
+    ...DEFAULT_SETTINGS,
+    ...rest,
+    content: mergeSiteContent(content ?? contentJson ?? DEFAULT_SETTINGS.content),
+  };
+}
+
+// تنظیمات عمومی سایت (شماره تماس، آدرس، متون ویترین) و گالری تصاویر فروشگاه
 export function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const [images, setImages] = useState([]);
@@ -31,7 +42,7 @@ export function SettingsProvider({ children }) {
 
         if (cancelled) return;
 
-        setSettings({ ...DEFAULT_SETTINGS, ...loadedSettings });
+        setSettings(normalizeSettings(loadedSettings));
         setImages(Array.isArray(loadedImages) ? loadedImages : []);
         setReady(true);
       } catch (err) {

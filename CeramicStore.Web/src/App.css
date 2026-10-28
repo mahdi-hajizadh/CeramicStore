@@ -9,7 +9,11 @@
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background: var(--surface-pure-white);
+  background:
+    radial-gradient(1200px 520px at 85% -10%, rgb(10 132 255 / 14%), transparent 58%),
+    radial-gradient(900px 480px at 0% 35%, rgb(90 200 250 / 12%), transparent 55%),
+    radial-gradient(800px 420px at 70% 78%, rgb(167 139 250 / 10%), transparent 50%),
+    linear-gradient(180deg, #f4f7fb 0%, #eef2f7 48%, #e8eef6 100%);
 }
 
 .store > main {
@@ -53,11 +57,17 @@
   padding-inline: max(var(--spacing-20), calc(50vw - 560px));
   direction: rtl;
   color: var(--color-fog-white);
-  background: rgb(29 29 31 / 72%);
-  border-bottom: 1px solid rgb(255 255 255 / 12%);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 8%);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: linear-gradient(
+    180deg,
+    rgb(28 28 30 / 78%) 0%,
+    rgb(22 22 24 / 64%) 100%
+  );
+  border-bottom: 1px solid var(--glass-dark-border);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 12%),
+    0 10px 30px rgb(15 23 42 / 10%);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border-radius: var(--radius-nav);
 }
 
@@ -263,8 +273,16 @@
   letter-spacing: var(--tracking-heading-lg);
 }
 
-.hero h1 span {
+.hero-title-line {
+  display: inline;
+}
+
+.hero-title-accent {
   color: var(--color-iris-blue);
+}
+
+.hero-title-accent::before {
+  content: "\00a0";
 }
 
 .hero p {
@@ -351,7 +369,10 @@
 
 .products-section {
   padding: var(--section-gap) max(var(--spacing-24), calc(50vw - 490px));
-  background: var(--surface-pure-white);
+  background: rgb(255 255 255 / 55%);
+  backdrop-filter: saturate(160%) blur(18px);
+  -webkit-backdrop-filter: saturate(160%) blur(18px);
+  border-block: 1px solid rgb(255 255 255 / 45%);
 }
 
 .section-heading {
@@ -446,15 +467,18 @@
 .product-card {
   min-width: 0;
   overflow: hidden;
-  border: 0;
+  border: 1px solid rgb(255 255 255 / 55%);
   border-radius: 18px;
-  background: var(--surface-canvas);
-  box-shadow: none;
-  transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
+  background: rgb(255 255 255 / 62%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 65%), 0 8px 24px rgb(15 23 42 / 5%);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out), border-color 240ms ease;
 }
 
 .product-card:hover {
-  box-shadow: var(--shadow-md);
+  border-color: rgb(10 132 255 / 28%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 80%), var(--shadow-md);
   transform: scale(1.015);
 }
 

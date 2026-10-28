@@ -90,6 +90,7 @@ function App() {
 
   const firstLoad = loading && products.length === 0;
   const brand = splitStoreName(settings.storeName);
+  const hero = settings.content?.hero;
 
   return (
     <>
@@ -106,25 +107,30 @@ function App() {
             )}
           </p>
 
-          <span className="eyebrow">CERAMIC &amp; TILE COLLECTION</span>
+          <span className="eyebrow">{hero?.eyebrow || "CERAMIC & TILE COLLECTION"}</span>
 
           <h1>
-            زیبایی ماندگار،
+            {hero?.titleLine1 || "زیبایی ماندگار،"}
             <br />
-            کیفیت <span>بی‌نظیر</span>
+            <span className="hero-title-line">
+              {(hero?.titleLine2Prefix || "کیفیت").trim()}
+              <span className="hero-title-accent">
+                {(hero?.titleLine2Highlight || "بی‌نظیر").trim()}
+              </span>
+            </span>
           </h1>
 
           <p>
-            مجموعه‌ای از کاشی و سرامیک باکیفیت برای ساختن فضایی
-            زیباتر و ماندگارتر.
+            {hero?.subtitle ||
+              "مجموعه‌ای از کاشی و سرامیک باکیفیت برای ساختن فضایی زیباتر و ماندگارتر."}
           </p>
 
           <div className="hero-actions">
             <a href="#products" className="primary-button">
-              مشاهده محصولات
+              {hero?.primaryCta || "مشاهده محصولات"}
             </a>
             <a href="#about" className="text-link">
-              تماس با ما
+              {hero?.secondaryCta || "تماس با ما"}
             </a>
           </div>
         </div>

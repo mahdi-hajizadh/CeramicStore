@@ -19,11 +19,22 @@
   --color-silver: #858585;
   --color-pale-mist: #d6d6d6;
   --color-ash-veil: #e2e2e5;
-  --color-iris-blue: #0071e3;
-  --color-sapphire: #0066cc;
-  --color-sky-signal: #2997ff;
-  --color-cornflower: #509be7;
-  --color-ice-wash: #aad0f6;
+  --color-iris-blue: #0a84ff;
+  --color-sapphire: #0077ed;
+  --color-sky-signal: #64b5ff;
+  --color-cornflower: #5ac8fa;
+  --color-ice-wash: #c7e2ff;
+
+  /* iOS glass surfaces */
+  --glass-light: rgb(255 255 255 / 58%);
+  --glass-light-strong: rgb(255 255 255 / 72%);
+  --glass-light-border: rgb(255 255 255 / 55%);
+  --glass-dark: rgb(22 24 28 / 62%);
+  --glass-dark-strong: rgb(18 20 24 / 78%);
+  --glass-dark-border: rgb(255 255 255 / 14%);
+  --glass-blur: saturate(180%) blur(24px);
+  --glass-shadow: 0 8px 32px rgb(15 23 42 / 8%);
+  --glass-inset: inset 0 1px 0 rgb(255 255 255 / 45%);
 
   /* Typography — Font Families */
   --font-sf-pro-display: "SF Pro Display", "Vazirmatn Variable", Vazirmatn,

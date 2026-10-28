@@ -15,7 +15,7 @@ const TABS = [
   { id: "orders", label: "سفارش‌ها", permission: "orders", Component: OrdersTab },
   { id: "customers", label: "مشتریان", permission: "customers", Component: CustomersTab },
   { id: "reports", label: "گزارش فروش", permission: "reports", Component: ReportsTab },
-  { id: "settings", label: "تنظیمات سایت", permission: "settings", Component: SettingsTab },
+  { id: "settings", label: "ویرایش سایت", permission: "settings", Component: SettingsTab },
   { id: "gallery", label: "تصاویر فروشگاه", permission: "gallery", Component: GalleryTab },
   { id: "staff", label: "ادمین‌ها", ownerOnly: true, Component: StaffTab },
 ];

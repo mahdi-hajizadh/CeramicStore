@@ -30,6 +30,7 @@ function Footer() {
   const storeName = settings.storeName || "CeramicStore";
   const year = new Date().getFullYear();
   const ig = instagramUrl(settings.instagram || "madi.hajizadh");
+  const footer = settings.content?.footer;
 
   return (
     <footer className="site-footer" dir="rtl">
@@ -48,12 +49,12 @@ function Footer() {
             </Link>
 
             <p className="footer-brand__tagline">
-              انتخابی مطمئن برای ساختن فضاهای ماندگار
+              {footer?.tagline || "انتخابی مطمئن برای ساختن فضاهای ماندگار"}
             </p>
 
             <p className="footer-brand__description">
-              فروشگاه تخصصی کاشی و سرامیک برای فضاهای داخلی و کاربری‌های متنوع؛
-              از انتخاب محصول تا آماده‌سازی سفارش در کنار شما هستیم.
+              {footer?.description ||
+                "فروشگاه تخصصی کاشی و سرامیک برای فضاهای داخلی و کاربری‌های متنوع؛ از انتخاب محصول تا آماده‌سازی سفارش در کنار شما هستیم."}
             </p>
 
             <Link

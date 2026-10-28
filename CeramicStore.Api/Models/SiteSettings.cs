@@ -18,4 +18,7 @@ public class SiteSettings
     public string? About { get; set; }
 
     public string? Instagram { get; set; }
+
+    // محتوای قابل‌ویرایش ویترین (هدر، هیرو، فوتر، راهنما، صفحات حقوقی) به‌صورت JSON
+    public string ContentJson { get; set; } = "{}";
 }

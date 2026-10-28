@@ -96,6 +96,9 @@ public class AppDbContext : DbContext
             entity.Property(s => s.WorkingHours).HasMaxLength(200);
             entity.Property(s => s.About).HasMaxLength(2000);
             entity.Property(s => s.Instagram).HasMaxLength(100);
+            entity.Property(s => s.ContentJson)
+                .HasColumnType("text")
+                .HasDefaultValue("{}");
 
             entity.HasData(new SiteSettings
             {
@@ -104,7 +107,8 @@ public class AppDbContext : DbContext
                 Phone = "09917933772",
                 Address = "مازندران، آمل",
                 WorkingHours = "شنبه تا پنجشنبه، ۹ صبح تا ۸ شب",
-                About = "انتخابی مطمئن برای ساختن فضاهای ماندگار."
+                About = "انتخابی مطمئن برای ساختن فضاهای ماندگار.",
+                ContentJson = "{}"
             });
         });
 

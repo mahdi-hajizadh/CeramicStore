@@ -1,7 +1,17 @@
 .info-page {
-  --info-accent: #3984ff;
+  --info-accent: #0a84ff;
   width: min(100% - 40px, 800px);
   margin: 40px auto 48px;
+}
+
+.info-page__inner {
+  padding: 28px;
+  border: 1px solid var(--glass-light-border);
+  border-radius: 22px;
+  background: var(--glass-light);
+  box-shadow: var(--glass-shadow), var(--glass-inset);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 }
 
 .info-page__back {
@@ -34,7 +44,7 @@
 
 .info-page__header p {
   margin: 0;
-  color: #6b7280;
+  color: #5c6675;
   font-size: 15px;
   line-height: 1.7;
 }
@@ -50,29 +60,38 @@
 
 .info-page__points li {
   position: relative;
-  padding: 14px 16px 14px 18px;
-  border: 1px solid #e8eaee;
-  border-radius: 12px;
-  background: #fafbfc;
+  padding: 14px 16px;
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: 14px;
+  background: rgb(255 255 255 / 48%);
   color: #374151;
   font-size: 14px;
   line-height: 1.75;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 70%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .info-page__note {
   margin: 20px 0 0;
   padding: 14px 16px;
-  border: 1px solid #f0e2c4;
-  border-radius: 12px;
-  background: #fff9ef;
+  border: 1px solid rgb(255 214 140 / 55%);
+  border-radius: 14px;
+  background: rgb(255 249 230 / 70%);
   color: #7a5b1e;
   font-size: 13px;
   line-height: 1.7;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 @media (max-width: 520px) {
   .info-page {
     width: min(100% - 32px, 800px);
     margin-top: 28px;
+  }
+
+  .info-page__inner {
+    padding: 18px;
   }
 }
