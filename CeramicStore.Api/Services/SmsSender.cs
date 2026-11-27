@@ -2,7 +2,6 @@ using System.Text.Json;
 
 namespace CeramicStore.Api.Services;
 
-// در Development یا بدون ApiKey فقط لاگ می‌کند؛ با Kavenegar ارسال واقعی می‌زند.
 public sealed class SmsSender : ISmsSender
 {
     private readonly IConfiguration _configuration;
@@ -27,21 +26,21 @@ public sealed class SmsSender : ISmsSender
         var apiKey = _configuration["Sms:ApiKey"];
         var provider = _configuration["Sms:Provider"] ?? "Console";
 
-        if (string.IsNullOrWhiteSpace(apiKey) ||
-            provider.Equals("Console", StringComparison.OrdinalIgnoreCase))
+        if (provider.Equals("Console", StringComparison.OrdinalIgnoreCase) && _environment.IsDevelopment())
         {
             _logger.LogInformation("SMS → {Phone}: {Message}", phone, message);
             return;
         }
 
-        if (provider.Equals("Kavenegar", StringComparison.OrdinalIgnoreCase))
+        if (provider.Equals("Kavenegar", StringComparison.OrdinalIgnoreCase) &&
+            !string.IsNullOrWhiteSpace(apiKey))
         {
             await SendKavenegarAsync(apiKey, phone, message, cancellationToken);
             return;
         }
 
-        _logger.LogWarning("ارائه‌دهنده پیامک ناشناخته: {Provider}. پیام لاگ شد.", provider);
-        _logger.LogInformation("SMS → {Phone}: {Message}", phone, message);
+        _logger.LogWarning("SMS provider is unavailable or incorrectly configured.");
+        throw new InvalidOperationException("ارسال پیامک در حال حاضر در دسترس نیست.");
     }
 
     private async Task SendKavenegarAsync(
@@ -65,8 +64,7 @@ public sealed class SmsSender : ISmsSender
 
         if (!response.IsSuccessStatusCode)
         {
-            _logger.LogError("ارسال پیامک کاوه‌نگار ناموفق بود ({Status}): {Body}",
-                (int)response.StatusCode, body);
+            _logger.LogError("ارسال پیامک کاوه‌نگار ناموفق بود ({Status})", (int)response.StatusCode);
             throw new InvalidOperationException("ارسال پیامک ناموفق بود. کمی بعد دوباره تلاش کن.");
         }
 
@@ -80,7 +78,7 @@ public sealed class SmsSender : ISmsSender
 
             if (returnStatus != 200)
             {
-                _logger.LogError("کاوه‌نگار وضعیت غیرموفق برگرداند: {Body}", body);
+                _logger.LogError("کاوه‌نگار وضعیت غیرموفق برگرداند ({Status})", returnStatus);
                 throw new InvalidOperationException("ارسال پیامک ناموفق بود. کمی بعد دوباره تلاش کن.");
             }
         }
@@ -88,13 +86,12 @@ public sealed class SmsSender : ISmsSender
         {
             throw;
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is JsonException or KeyNotFoundException or FormatException)
         {
-            _logger.LogWarning(ex, "پاسخ کاوه‌نگار قابل‌خواندن نبود؛ با فرض موفقیت ادامه می‌دهیم. {Body}", body);
+            _logger.LogWarning("پاسخ کاوه‌نگار قابل‌خواندن نبود.");
+            throw new InvalidOperationException("ارسال پیامک ناموفق بود. کمی بعد دوباره تلاش کن.");
         }
     }
 
-    public bool ExposeDevCode =>
-        _environment.IsDevelopment() ||
-        string.Equals(_configuration["Sms:ExposeDevCode"], "true", StringComparison.OrdinalIgnoreCase);
+    public bool ExposeDevCode => _environment.IsDevelopment();
 }

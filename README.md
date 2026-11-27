@@ -34,7 +34,7 @@ CeramicStore/
 
 ## Prerequisites
 
-- .NET 10 SDK
+- .NET 10 SDK and [EF Core CLI](https://learn.microsoft.com/ef/core/cli/dotnet)
 - Node.js 20+
 - PostgreSQL 14+
 
@@ -55,14 +55,15 @@ dotnet run --urls http://localhost:5158
 
 On first run, the API creates the owner account from the seed secrets and loads sample products when the catalog is empty.
 
-Optional SMS settings in `appsettings.json`:
+The local Development environment supports the console SMS provider and displays the verification code in the UI. Outside Development, configure Kavenegar to enable SMS verification. Supply the API key through user secrets for local testing or through a secret store or `Sms__ApiKey` at deployment.
+
+Example local SMS settings in `appsettings.json`:
 
 ```json
 "Sms": {
   "Provider": "Console",
   "ApiKey": "",
-  "Sender": "",
-  "ExposeDevCode": true
+  "Sender": ""
 }
 ```
 
@@ -71,7 +72,7 @@ Optional SMS settings in `appsettings.json`:
 ```bash
 cd CeramicStore.Web
 cp .env.example .env
-npm install
+npm ci
 npm run dev
 ```
 
