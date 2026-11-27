@@ -4,7 +4,7 @@ import { ALLOWED_IMAGE_TYPES, MAX_IMAGE_BYTES } from "../config.js";
 import { useSettings } from "../settings/useSettings.js";
 import { imageSrc, readApiError } from "../utils.js";
 
-// تصاویر خود فروشگاه (نه تصاویر محصولات)
+// Gallery images show the store itself.
 function GalleryTab() {
   const { images, reload } = useSettings();
   const [file, setFile] = useState(null);

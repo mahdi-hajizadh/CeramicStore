@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CeramicStore.Api.Controllers;
 
-// تصاویر خود فروشگاه (گالری سایت)؛ جدا از تصاویر محصولات
+// Store gallery images are separate from product images.
 [ApiController]
 [Route("api/store-images")]
 public class StoreImagesController : ControllerBase
@@ -23,7 +23,7 @@ public class StoreImagesController : ControllerBase
         _storage = storage;
     }
 
-    // GET: api/store-images  (عمومی)
+    // GET api/store-images (public)
     [HttpGet]
     public async Task<ActionResult<List<StoreImage>>> GetAll(
         CancellationToken cancellationToken)
@@ -37,7 +37,7 @@ public class StoreImagesController : ControllerBase
         return Ok(images);
     }
 
-    // POST: api/store-images  (Owner یا ادمینِ دارای مجوز «تصاویر فروشگاه»)
+    // POST api/store-images (owner or admin with the store images permission)
     [HttpPost]
     [HasPermission(AdminPermissions.Gallery)]
     [RequestSizeLimit(ImageStorage.MaxImageBytes + 1024 * 1024)]
@@ -86,7 +86,7 @@ public class StoreImagesController : ControllerBase
         return Ok(entity);
     }
 
-    // DELETE: api/store-images/3  (Owner یا ادمینِ دارای مجوز «تصاویر فروشگاه»)
+    // DELETE api/store-images/3 (owner or admin with the store images permission)
     [HttpDelete("{id:int}")]
     [HasPermission(AdminPermissions.Gallery)]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)

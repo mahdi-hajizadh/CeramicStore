@@ -1,6 +1,6 @@
 import { normalizeDigits } from "../utils.js";
 
-// موبایل ایران را به 09xxxxxxxxx تبدیل می‌کند؛ در غیر این صورت "".
+// Normalize an Iranian mobile number to 09xxxxxxxxx or return an empty string.
 export function normalizeMobile(value) {
   let digits = normalizeDigits(value).replace(/[^\d]/g, "");
 

@@ -58,7 +58,7 @@ builder.Services
 
         options.Events = new JwtBearerEvents
         {
-            // اگر کاربر حذف شده یا نقشش عوض شده باشد، توکن قدیمی بی‌اعتبار می‌شود.
+            // Reject an old token if the account was removed or its role changed.
             OnTokenValidated = async context =>
             {
                 var db = context.HttpContext.RequestServices.GetRequiredService<AppDbContext>();
@@ -77,7 +77,7 @@ builder.Services
 
 builder.Services.AddAuthorization(options =>
 {
-    // برای هر بخش پنل مدیریت یک policy ساخته می‌شود (perm:products، perm:orders، ...).
+    // Register a permission policy for each management area, such as perm:products and perm:orders.
     foreach (var (key, _) in AdminPermissions.All)
     {
         options.AddPolicy(PermissionPolicy.For(key), policy =>
@@ -99,7 +99,7 @@ builder.Services.AddSingleton<SmsSender>();
 builder.Services.AddSingleton<ISmsSender>(sp => sp.GetRequiredService<SmsSender>());
 builder.Services.AddScoped<OtpService>();
 
-// ---------- Rate limiting (ورود و ثبت‌نام) ----------
+// ---------- Sign-in and signup rate limiting ----------
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;

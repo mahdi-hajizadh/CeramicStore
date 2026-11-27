@@ -11,7 +11,7 @@ import {
 
 const PAGE_SIZE = 10;
 
-// فهرست مشتریان ثبت‌نام‌شده (فقط مشاهده)
+// Read-only list of registered customers
 function CustomersTab() {
   const [searchInput, setSearchInput] = useState("");
   const [page, setPage] = useState(1);

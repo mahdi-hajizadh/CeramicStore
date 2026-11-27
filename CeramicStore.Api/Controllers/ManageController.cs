@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CeramicStore.Api.Controllers;
 
-// بخش‌های مدیریتی که با مجوز قابل واگذاری به ادمین‌ها هستند (سفارش‌ها، مشتریان، گزارش فروش).
-// Owner همیشه دسترسی دارد؛ Admin فقط با مجوز مربوط به همان بخش.
+// Management areas that owners can delegate to admins include orders, customers, and sales reports.
+// Owners always have access. Admins need permission for the requested area.
 [ApiController]
 [Route("api/manage")]
 public class ManageController : ControllerBase
@@ -102,7 +102,7 @@ public class ManageController : ControllerBase
             return Ok(OrderDto.From(order));
         }
 
-        // اگر مشتری هم‌زمان سفارش را لغو کرده باشد، سفارش لغوشده دوباره زنده نمی‌شود.
+        // Do not reopen an order that the customer canceled concurrently.
         var expected = order.Status;
 
         var changed = await _context.Orders
@@ -174,7 +174,7 @@ public class ManageController : ControllerBase
     }
 
     // GET: api/manage/reports/sales
-    // سفارش‌های لغوشده در درآمد و پرفروش‌ها حساب نمی‌شوند.
+    // Exclude canceled orders from revenue and bestseller calculations.
     [HttpGet("reports/sales")]
     [HasPermission(AdminPermissions.Reports)]
     public async Task<ActionResult<SalesReportDto>> GetSalesReport(
@@ -203,7 +203,7 @@ public class ManageController : ControllerBase
         var customerCount = await _context.Users
             .CountAsync(u => u.Role == Roles.Customer, cancellationToken);
 
-        // مرتب‌سازی قبل از تبدیل به DTO انجام می‌شود تا ترجمه به SQL مطمئن باشد.
+        // Sort before projecting to DTOs to ensure the query translates to SQL.
         var topRows = await _context.Orders
             .AsNoTracking()
             .Where(o => o.Status != OrderStatus.Cancelled)
@@ -224,7 +224,7 @@ public class ManageController : ControllerBase
             .Select(x => new TopProductDto(x.ProductId, x.ProductName, x.Boxes, x.Revenue))
             .ToList();
 
-        // فروش ۳۰ روز اخیر؛ تعداد سفارش‌ها کم است و گروه‌بندی در حافظه ساده‌تر و مطمئن‌تر است.
+        // For the last 30 days of sales, the small result set can be grouped in memory.
         var since = DateTime.UtcNow.Date.AddDays(-29);
 
         var recent = await _context.Orders

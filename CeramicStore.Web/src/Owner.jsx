@@ -10,7 +10,7 @@ import ReportsTab from "./owner/ReportsTab.jsx";
 import SettingsTab from "./owner/SettingsTab.jsx";
 import StaffTab from "./owner/StaffTab.jsx";
 
-// permission: مجوز لازم برای ادمین‌ها؛ ownerOnly: فقط صاحب فروشگاه
+// permission controls admin access, and ownerOnly restricts access to the store owner.
 const TABS = [
   { id: "orders", label: "سفارش‌ها", permission: "orders", Component: OrdersTab },
   { id: "customers", label: "مشتریان", permission: "customers", Component: CustomersTab },

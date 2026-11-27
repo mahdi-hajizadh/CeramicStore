@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CeramicStore.Api.Authorization;
 
-// نام policy برای هر بخش پنل مدیریت (مثلاً perm:orders)
+// Policy name for each management area, such as perm:orders.
 public static class PermissionPolicy
 {
     public const string Prefix = "perm:";
@@ -14,8 +14,8 @@ public static class PermissionPolicy
     public static string For(string permission) => Prefix + permission;
 }
 
-// روی اکشن‌ها گذاشته می‌شود: [HasPermission(AdminPermissions.Orders)]
-// Owner همیشه مجاز است؛ Admin فقط اگر صاحب فروشگاه آن بخش را برایش فعال کرده باشد.
+// Apply to actions with [HasPermission(AdminPermissions.Orders)].
+// Owners always have access. Admins need permission for the requested area.
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false)]
 public sealed class HasPermissionAttribute : AuthorizeAttribute
 {
@@ -61,7 +61,7 @@ public sealed class PermissionHandler : AuthorizationHandler<PermissionRequireme
 
         var userId = context.User.GetUserId();
 
-        // مجوزها همیشه از دیتابیس خوانده می‌شوند تا تغییر دسترسی فوراً اعمال شود.
+        // Read permissions from the database so changes take effect immediately.
         var json = await _context.Users
             .AsNoTracking()
             .Where(u => u.Id == userId && u.Role == Roles.Admin)

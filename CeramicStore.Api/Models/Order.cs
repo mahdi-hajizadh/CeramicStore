@@ -21,7 +21,7 @@ public class Order
 
     public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
-    // آدرس به‌صورت نسخه ثابت در سفارش ذخیره می‌شود تا با تغییر آدرس‌های کاربر عوض نشود.
+    // Store an address snapshot so account address changes do not alter past orders.
     public string RecipientName { get; set; } = "";
 
     public string Phone { get; set; } = "";
@@ -47,7 +47,7 @@ public class OrderItem
 
     public int OrderId { get; set; }
 
-    // عمداً کلید خارجی نیست تا با حذف محصول، تاریخچه سفارش‌ها حفظ شود.
+    // Omit the foreign key so order history survives product deletion.
     public int ProductId { get; set; }
 
     public string ProductName { get; set; } = "";
@@ -58,6 +58,6 @@ public class OrderItem
 
     public decimal BoxCoverage { get; set; }
 
-    // تعداد کارتن
+    // Number of boxes
     public int Quantity { get; set; }
 }

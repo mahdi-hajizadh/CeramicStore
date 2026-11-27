@@ -31,7 +31,7 @@ const emptyForm = {
   stock: "",
 };
 
-/* ---------- داشبورد مدیریت ---------- */
+/* ---------- Admin dashboard ---------- */
 
 function Admin() {
   const { user, logout } = useAuth();
@@ -68,7 +68,7 @@ function Admin() {
 
   const refresh = useCallback(() => setReloadToken((token) => token + 1), []);
 
-  // آمار کل محصولات (مستقل از صفحه‌بندی)
+  // Product totals across all pages
   useEffect(() => {
     const controller = new AbortController();
 
@@ -89,7 +89,7 @@ function Admin() {
     return () => controller.abort();
   }, [reloadToken]);
 
-  // پیش‌نمایش تصویر انتخاب‌شده؛ آدرس موقت هنگام تغییر آزاد می‌شود.
+  // Preview the selected image and release the old object URL when it changes.
   const localPreview = useMemo(
     () => (selectedImage ? URL.createObjectURL(selectedImage) : ""),
     [selectedImage]
@@ -103,7 +103,7 @@ function Admin() {
 
   const previewSrc = localPreview || imageSrc(currentImageUrl);
 
-  // درخواست‌های مدیریتی با توکن ورود؛ در صورت 401 کاربر خودکار خارج می‌شود.
+  // Admin requests use the session token. A 401 signs the user out automatically.
   const adminFetch = useCallback(async (url, options = {}) => {
     const response = await apiFetch(url, options);
 
@@ -273,8 +273,8 @@ function Admin() {
         );
 
         if (!imageResponse.ok) {
-          // محصول ذخیره شده است؛ فرم را به حالت ویرایش می‌بریم تا با تلاش
-          // دوباره، محصول تکراری ساخته نشود.
+          // The product already exists, so switch the form to edit mode
+          // to prevent duplicate products if the user retries.
           setEditingId(savedProduct.id);
           setCurrentImageUrl(savedProduct.imageUrl ?? "");
           refresh();
@@ -323,7 +323,7 @@ function Admin() {
 
       if (editingId === product.id) resetForm();
 
-      // اگر آخرین محصول صفحه حذف شد، به صفحه قبل برگرد.
+      // Return to the preceding page when its last product is deleted.
       if (products.length === 1 && page > 1) setPage(page - 1);
 
       setSuccess("محصول با موفقیت حذف شد.");

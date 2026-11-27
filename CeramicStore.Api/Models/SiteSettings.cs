@@ -1,6 +1,6 @@
 namespace CeramicStore.Api.Models;
 
-// همیشه فقط یک ردیف (Id = 1) وجود دارد.
+// Keep a single settings row with Id 1.
 public class SiteSettings
 {
     public int Id { get; set; }
@@ -19,6 +19,6 @@ public class SiteSettings
 
     public string? Instagram { get; set; }
 
-    // محتوای قابل‌ویرایش ویترین (هدر، هیرو، فوتر، راهنما، صفحات حقوقی) به‌صورت JSON
+    // Store editable storefront content as JSON, including headers, hero, footer, guide, and legal pages.
     public string ContentJson { get; set; } = "{}";
 }

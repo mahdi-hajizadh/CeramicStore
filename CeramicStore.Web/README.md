@@ -5,7 +5,7 @@ React + Vite storefront for CeramicStore.
 ## Scripts
 
 ```bash
-npm install
+npm ci
 cp .env.example .env
 npm run dev
 npm run build

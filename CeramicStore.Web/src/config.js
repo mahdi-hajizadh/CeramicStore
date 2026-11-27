@@ -1,4 +1,4 @@
-// آدرس بک‌اند از متغیر VITE_API_URL خوانده می‌شود (فایل .env)
+// Read the backend address from VITE_API_URL in the .env file.
 export const API_ORIGIN = (
   import.meta.env.VITE_API_URL ?? "http://localhost:5158"
 ).replace(/\/+$/, "");

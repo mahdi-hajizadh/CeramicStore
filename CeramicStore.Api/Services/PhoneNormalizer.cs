@@ -4,7 +4,7 @@ namespace CeramicStore.Api.Services;
 
 public static class PhoneNormalizer
 {
-    // موبایل ایران را به شکل استاندارد 09xxxxxxxxx برمی‌گرداند؛ در غیر این صورت null.
+    // Normalize an Iranian mobile number to 09xxxxxxxxx, or return null.
     public static string? NormalizeMobile(string? input)
     {
         if (string.IsNullOrWhiteSpace(input)) return null;

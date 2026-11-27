@@ -20,8 +20,8 @@ function loadCart() {
   }
 }
 
-// هر ردیف سبد: { productId, quantity, name, brand, price, boxCoverage, stock, imageUrl }
-// quantity تعداد کارتن است. قیمت‌ها فقط برای نمایش‌اند؛ سرور هنگام ثبت سفارش دوباره محاسبه می‌کند.
+// Each item stores productId, quantity, name, brand, price, boxCoverage, stock, and imageUrl.
+// Quantity counts boxes. Displayed prices are recalculated by the server at checkout.
 export function CartProvider({ children }) {
   const [items, setItems] = useState(loadCart);
 
@@ -29,7 +29,7 @@ export function CartProvider({ children }) {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     } catch {
-      // ذخیره‌سازی در دسترس نیست؛ سبد فقط در همین نشست می‌ماند.
+      // When storage is unavailable, keep the cart for the current session only.
     }
   }, [items]);
 
@@ -79,7 +79,7 @@ export function CartProvider({ children }) {
 
   const clear = useCallback(() => setItems([]), []);
 
-  // اطلاعات تازه محصولات را روی سبد اعمال می‌کند؛ محصولات حذف‌شده یا ناموجود از سبد خارج می‌شوند.
+  // Refresh product details and remove deleted or out-of-stock products from the cart.
   const syncProducts = useCallback((freshById) => {
     setItems((current) =>
       current.flatMap((item) => {

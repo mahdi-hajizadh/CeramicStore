@@ -2,7 +2,7 @@ namespace CeramicStore.Api.Services;
 
 public static class SearchHelpers
 {
-    // کاراکترهای خاص LIKE را بی‌اثر می‌کند تا ورودی کاربر الگو نشود.
+    // Escape LIKE metacharacters so user input is treated as literal text.
     public static string EscapeLike(string value) =>
         value
             .Replace("\\", "\\\\")

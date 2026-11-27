@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { apiJson } from "../api.js";
 import { ORDER_STATUS_LABELS, formatNumber, formatPrice } from "../utils.js";
 
-// گزارش فروش؛ سفارش‌های لغوشده در درآمد حساب نمی‌شوند.
+// Exclude canceled orders from sales revenue.
 function ReportsTab() {
   const [state, setState] = useState({ report: null, error: "" });
 

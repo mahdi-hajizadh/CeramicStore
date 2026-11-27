@@ -33,7 +33,7 @@ public class UpdateSettingsDto
     [StringLength(100)]
     public string? Instagram { get; set; }
 
-    // شیء محتوای ویترین؛ در سرور به ContentJson تبدیل می‌شود
+    // Storefront content, serialized to ContentJson on the server
     public JsonElement? Content { get; set; }
 }
 

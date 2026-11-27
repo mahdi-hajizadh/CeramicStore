@@ -34,7 +34,7 @@ public class RegisterDto
 
 public class LoginDto
 {
-    // نام کاربری ادمین/مالک یا شماره موبایل مشتری
+    // Username for staff, or mobile number for a customer
     [Required(ErrorMessage = "نام کاربری یا موبایل الزامی است.")]
     public string Username { get; set; } = string.Empty;
 

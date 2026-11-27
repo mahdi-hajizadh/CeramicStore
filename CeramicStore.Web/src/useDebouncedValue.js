@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-// مقدار را با تأخیر برمی‌گرداند تا با هر کلید یک درخواست به سرور نرود.
+// Delay the value to avoid a network request on every keystroke.
 export function useDebouncedValue(value, delay = 350) {
   const [debounced, setDebounced] = useState(value);
 

@@ -18,7 +18,7 @@ public class CreateOrderDto
     [MaxLength(100)]
     public List<OrderLineDto> Items { get; set; } = new();
 
-    // یا شناسه یکی از آدرس‌های ذخیره‌شده، یا آدرس جدید
+    // An existing saved address ID or a new address
     public int? AddressId { get; set; }
 
     public ShippingAddressDto? Address { get; set; }

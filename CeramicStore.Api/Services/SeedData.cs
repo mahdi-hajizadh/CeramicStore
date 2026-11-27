@@ -13,8 +13,8 @@ public static class SeedData
         PropertyNameCaseInsensitive = true
     };
 
-    // اگر هنوز صاحب فروشگاه (Owner) وجود ندارد، از تنظیمات Seed:OwnerUsername و
-    // Seed:OwnerPassword اولین حساب Owner را می‌سازد.
+    // If there is no owner, use Seed:OwnerUsername and
+    // Seed:OwnerPassword to create the first owner account.
     public static async Task EnsureOwnerAsync(IServiceProvider services)
     {
         using var scope = services.CreateScope();
@@ -62,7 +62,7 @@ public static class SeedData
         }
     }
 
-    // اگر جدول محصولات خالی باشد، ۲۰ محصول نمونه از فایل JSON وارد می‌شود.
+    // Load 20 sample products from JSON if the products table is empty.
     public static async Task EnsureProductsAsync(IServiceProvider services)
     {
         using var scope = services.CreateScope();

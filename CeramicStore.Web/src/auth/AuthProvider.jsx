@@ -4,7 +4,7 @@ import { AuthContext } from "./AuthContext.js";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  // اگر توکنی ذخیره شده باشد، باید اول اعتبارش از سرور بررسی شود.
+  // Validate a stored token with the server before using it.
   const [status, setStatus] = useState(() => (getToken() ? "loading" : "ready"));
 
   useEffect(() => {

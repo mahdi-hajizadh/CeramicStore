@@ -35,7 +35,7 @@ CeramicStore/
 ## Prerequisites
 
 - .NET 10 SDK and [EF Core CLI](https://learn.microsoft.com/ef/core/cli/dotnet)
-- Node.js 20+
+- Node.js 22.13+
 - PostgreSQL 14+
 
 ## Backend setup

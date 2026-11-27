@@ -36,13 +36,6 @@ function AccountPage() {
   const refresh = useCallback(() => setReloadToken((token) => token + 1), []);
 
   useEffect(() => {
-    setProfileForm((current) => ({
-      ...current,
-      fullName: user?.fullName ?? "",
-    }));
-  }, [user?.fullName]);
-
-  useEffect(() => {
     let cancelled = false;
 
     (async () => {
@@ -193,7 +186,13 @@ function AccountPage() {
             type="button"
             className="account-edit"
             onClick={() => {
-              setShowEdit((open) => !open);
+              if (!showEdit) {
+                setProfileForm((current) => ({
+                  ...current,
+                  fullName: user?.fullName ?? "",
+                }));
+              }
+              setShowEdit(!showEdit);
               setError("");
               setSuccess("");
             }}

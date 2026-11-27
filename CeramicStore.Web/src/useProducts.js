@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { API_URL } from "./config.js";
 import { readApiError } from "./utils.js";
 
-// لیست محصولات را با جست‌وجو، مرتب‌سازی و صفحه‌بندی از API می‌گیرد.
-// با تغییر reloadToken می‌شود دوباره بارگذاری را اجبار کرد.
+// Fetch products with search, sorting, and pagination.
+// Changing reloadToken forces a refetch.
 export function useProducts({
   search = "",
   sortBy = "",

@@ -36,7 +36,7 @@ namespace CeramicStore.Api.Migrations
                 table: "OtpChallenges",
                 columns: new[] { "Phone", "Purpose", "CreatedAt" });
 
-            // اگر جدول Users از قبل هست، ایندکس یکتای موبایل را اضافه کن.
+            // If the Users table already exists, add its unique mobile number index.
             migrationBuilder.Sql(
                 """
                 DO $$
