@@ -93,7 +93,8 @@ builder.Services.AddScoped<IAuthorizationHandler, PermissionHandler>();
 builder.Services.AddSingleton<IPasswordHasher<AppUser>, PasswordHasher<AppUser>>();
 builder.Services.AddSingleton<TokenService>();
 builder.Services.AddScoped<ImageStorage>();
-builder.Services.AddHttpClient("sms");
+// Keep provider credentials and verification messages out of HTTP request logs.
+builder.Services.AddHttpClient("sms").RemoveAllLoggers();
 builder.Services.AddSingleton<SmsSender>();
 builder.Services.AddSingleton<ISmsSender>(sp => sp.GetRequiredService<SmsSender>());
 builder.Services.AddScoped<OtpService>();
