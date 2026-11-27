@@ -20,7 +20,7 @@ public class SettingsController : ControllerBase
         _context = context;
     }
 
-    // GET: api/settings  (عمومی)
+    // GET api/settings (public)
     [HttpGet]
     public async Task<ActionResult<SiteSettingsResponseDto>> Get(CancellationToken cancellationToken)
     {
@@ -40,7 +40,7 @@ public class SettingsController : ControllerBase
         return Ok(SiteSettingsResponseDto.From(settings));
     }
 
-    // PUT: api/settings  (Owner یا ادمینِ دارای مجوز «تنظیمات»)
+    // PUT api/settings (owner or admin with the settings permission)
     [HttpPut]
     [HasPermission(AdminPermissions.Settings)]
     public async Task<ActionResult<SiteSettingsResponseDto>> Update(

@@ -23,7 +23,7 @@ function normalizeSettings(loaded) {
   };
 }
 
-// تنظیمات عمومی سایت (شماره تماس، آدرس، متون ویترین) و گالری تصاویر فروشگاه
+// Load public site settings, storefront content, and gallery images.
 export function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const [images, setImages] = useState([]);

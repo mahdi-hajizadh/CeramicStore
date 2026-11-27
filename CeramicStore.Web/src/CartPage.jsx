@@ -8,7 +8,7 @@ function CartPage() {
   const { items, total, setQuantity, removeItem, clear, syncProducts } = useCart();
   const navigate = useNavigate();
 
-  // قیمت و موجودی تازه را از سرور می‌گیریم تا سبد قدیمی نماند.
+  // Refresh prices and available stock from the server so the cart stays current.
   const idsKey = items.map((item) => item.productId).join(",");
 
   useEffect(() => {

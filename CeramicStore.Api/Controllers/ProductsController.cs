@@ -22,7 +22,7 @@ public class ProductsController : ControllerBase
     }
 
     // GET: api/products
-    // تعداد کل نتایج در هدر X-Total-Count برگردانده می‌شود.
+    // Return the total result count in the X-Total-Count header.
     [HttpGet]
     public async Task<ActionResult<List<Product>>> GetAll(
         [FromQuery] string? search,
@@ -44,7 +44,7 @@ public class ProductsController : ControllerBase
 
         var query = _context.Products.AsNoTracking();
 
-        // جست‌وجوی بدون حساسیت به حروف بزرگ و کوچک در نام محصول یا برند
+        // Search product names and brands without case sensitivity.
         if (!string.IsNullOrWhiteSpace(search))
         {
             var pattern = $"%{SearchHelpers.EscapeLike(search.Trim())}%";
@@ -56,7 +56,7 @@ public class ProductsController : ControllerBase
 
         var totalCount = await query.CountAsync(cancellationToken);
 
-        // مرتب‌سازی (با Id به‌عنوان معیار دوم تا صفحه‌بندی پایدار بماند)
+        // Use Id as a tie-breaker to keep pagination stable.
         IOrderedQueryable<Product> ordered = sortBy?.ToLowerInvariant() switch
         {
             "price" when descending =>
@@ -148,7 +148,7 @@ public class ProductsController : ControllerBase
     }
 
     // PUT: api/products/1
-    // از UpdateProductDto استفاده می‌شود تا کلاینت نتواند Id یا ImageUrl را دستکاری کند.
+    // Use UpdateProductDto to prevent clients from changing Id or ImageUrl.
     [HttpPut("{id:int}")]
     [HasPermission(AdminPermissions.Products)]
     public async Task<ActionResult<Product>> Update(
@@ -217,12 +217,12 @@ public class ProductsController : ControllerBase
         }
         catch
         {
-            // اگر ذخیره در دیتابیس شکست خورد، فایل تازه آپلودشده یتیم نمی‌ماند.
+            // Remove the new upload if persisting the database change fails.
             _storage.Delete(url);
             throw;
         }
 
-        // تصویر قبلی فقط بعد از ذخیره موفق حذف می‌شود.
+        // Delete the previous image only after the change is saved.
         _storage.Delete(oldImageUrl);
 
         return Ok(product);
@@ -269,7 +269,7 @@ public class ProductsController : ControllerBase
         _context.Products.Remove(product);
         await _context.SaveChangesAsync();
 
-        // با حذف محصول، فایل تصویرش هم از دیسک پاک می‌شود.
+        // Remove the image file when deleting the product.
         _storage.Delete(oldImageUrl);
 
         return NoContent();

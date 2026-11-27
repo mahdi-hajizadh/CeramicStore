@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CeramicStore.Api.Controllers;
 
-// مدیریت حساب ادمین‌ها و مجوزهایشان؛ فقط برای صاحب فروشگاه
-// (سفارش‌ها، مشتریان و گزارش‌ها در ManageController هستند.)
+// Only the store owner can manage admin accounts and their permissions.
+// ManageController handles orders, customers, and reports.
 [ApiController]
 [Route("api/owner")]
 [Authorize(Roles = Roles.Owner)]
@@ -38,7 +38,7 @@ public class OwnerController : ControllerBase
         return Ok(staff.Select(StaffDto.From).ToList());
     }
 
-    // POST: api/owner/staff  (ساخت ادمین)
+    // POST api/owner/staff (create an admin account)
     [HttpPost("staff")]
     public async Task<ActionResult<StaffDto>> CreateStaff(
         CreateStaffDto dto,
@@ -94,7 +94,7 @@ public class OwnerController : ControllerBase
         return Ok(StaffDto.From(user));
     }
 
-    // DELETE: api/owner/staff/7  (فقط حساب‌های Admin قابل حذف‌اند)
+    // DELETE api/owner/staff/7 (admin accounts only)
     [HttpDelete("staff/{id:int}")]
     public async Task<IActionResult> DeleteStaff(int id, CancellationToken cancellationToken)
     {
@@ -106,7 +106,7 @@ public class OwnerController : ControllerBase
             return NotFound("ادمین پیدا نشد.");
         }
 
-        // سفارش‌ها به کاربر وابسته‌اند؛ حذف کاربرِ دارای سفارش باعث خطای دیتابیس می‌شد.
+        // Orders reference user accounts, so deleting a user with orders would fail.
         if (await _context.Orders.AnyAsync(o => o.UserId == id, cancellationToken))
         {
             return Conflict("این ادمین سفارش ثبت کرده است و حذف نمی‌شود.");

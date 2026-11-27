@@ -1,4 +1,4 @@
-// بخش‌های قابل‌واگذاری پنل مدیریت (باید با AdminPermissions در بک‌اند یکی باشد).
+// Delegable management areas must match AdminPermissions in the backend.
 export const PERMISSIONS = [
   { key: "products", label: "مدیریت محصولات" },
   { key: "orders", label: "مدیریت سفارش‌ها" },
@@ -14,7 +14,7 @@ export function hasPermission(user, permission) {
   return user.role === "Admin" && (user.permissions ?? []).includes(permission);
 }
 
-// بخش‌هایی که در صفحه /owner (پنل مدیریت) نمایش داده می‌شوند؛ محصولات صفحه جدا دارد (/admin).
+// The owner dashboard displays these areas. Products have a separate page at /admin.
 export const PANEL_PERMISSIONS = ["orders", "customers", "reports", "gallery", "settings"];
 
 export function canOpenPanel(user) {

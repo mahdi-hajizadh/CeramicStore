@@ -1,6 +1,6 @@
 namespace CeramicStore.Api.Services;
 
-// ذخیره و حذف تصاویر آپلودشده (محصولات و گالری فروشگاه)
+// Store and delete uploaded product and gallery images.
 public class ImageStorage
 {
     public const long MaxImageBytes = 5 * 1024 * 1024;
@@ -17,7 +17,7 @@ public class ImageStorage
         _logger = logger;
     }
 
-    // خروجی: آدرس نسبی تصویر یا پیام خطا
+    // Return either the relative image URL or an error message.
     public async Task<(string? Url, string? Error)> SaveAsync(
         IFormFile? image,
         CancellationToken cancellationToken = default)
@@ -68,7 +68,7 @@ public class ImageStorage
 
         try
         {
-            // Path.GetFileName جلوی دستکاری مسیر (Path Traversal) را می‌گیرد.
+            // Use Path.GetFileName to prevent path traversal.
             var path = Path.Combine(GetUploadsFolder(), Path.GetFileName(imageUrl));
 
             if (File.Exists(path))
@@ -90,7 +90,7 @@ public class ImageStorage
         return Path.Combine(webRoot, "uploads");
     }
 
-    // نوع واقعی فایل از روی بایت‌های ابتدایی آن تشخیص داده می‌شود.
+    // Identify the actual file type from its leading bytes.
     private static async Task<string?> DetectExtensionAsync(
         Stream stream,
         CancellationToken cancellationToken)

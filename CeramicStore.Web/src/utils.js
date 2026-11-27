@@ -7,13 +7,13 @@ export function formatNumber(value) {
   return Number(value).toLocaleString("fa-IR");
 }
 
-// قیمت‌ها به تومان صحیح گرد می‌شوند (حاصل‌ضرب متراژ در قیمت می‌تواند اعشاری شود).
+// Round prices to whole tomans because area-based totals can be fractional.
 export function formatPrice(price) {
   return `${formatNumber(Math.round(Number(price)))} تومان`;
 }
 
-// تعداد کارتن لازم برای پوشش یک متراژ. اپسیلون جلوی خطای اعشاری را می‌گیرد:
-// مثلاً 4.32 / 0.48 در جاوااسکریپت 9.000000000000002 است و بدون آن ۱۰ کارتن (به‌جای ۹) حساب می‌شد.
+// Use a small epsilon when rounding up the number of boxes needed for an area.
+// For example, JavaScript gives 9.000000000000002 for 4.32 / 0.48, so rounding up directly would yield 10 boxes.
 export function boxesNeeded(area, coverage) {
   const ratio = Number(area) / Number(coverage);
 
@@ -28,7 +28,7 @@ export function imageSrc(imageUrl) {
   return `${API_ORIGIN}${imageUrl}`;
 }
 
-// ارقام فارسی و عربی را به انگلیسی تبدیل می‌کند تا ورودی عددی درست خوانده شود.
+// Convert Persian and Arabic numerals to ASCII for numeric input.
 export function normalizeDigits(value) {
   return String(value ?? "")
     .replace(/[۰-۹]/g, (digit) => String(PERSIAN_DIGITS.indexOf(digit)))
@@ -37,14 +37,14 @@ export function normalizeDigits(value) {
     .replace(/[,٬،\s]/g, "");
 }
 
-// متن ورودی را به عدد تبدیل می‌کند؛ اگر نامعتبر بود NaN برمی‌گرداند.
+// Parse a number from the input text and return NaN on failure.
 export function parseNumber(value) {
   const normalized = normalizeDigits(value);
   return normalized === "" ? Number.NaN : Number(normalized);
 }
 
-// پیام خطای قابل‌فهم را از پاسخ API بیرون می‌کشد
-// (متن ساده، ProblemDetails یا خطاهای اعتبارسنجی ASP.NET).
+// Extract a readable error from the API response.
+// Handle plain text, ProblemDetails, and ASP.NET validation errors.
 export async function readApiError(response) {
   const fallback = `خطای سرور (${response.status})`;
 
@@ -71,7 +71,7 @@ export async function readApiError(response) {
   }
 }
 
-// شماره تماس را برای لینک tel: آماده می‌کند (09123456789 → +989123456789).
+// Normalize a phone number for a tel: link, such as 09123456789 to +989123456789.
 export function toTelHref(phone) {
   const digits = normalizeDigits(phone).replace(/[^\d+]/g, "");
 
@@ -83,7 +83,7 @@ export function toTelHref(phone) {
   return `tel:+98${digits}`;
 }
 
-// آیدی (@shop)، نام ساده یا آدرس کامل اینستاگرام را به لینک پروفایل تبدیل می‌کند.
+// Convert an Instagram handle, username, or full URL to a profile link.
 export function instagramUrl(value) {
   const handle = String(value ?? "")
     .trim()
@@ -109,7 +109,7 @@ export function formatDateTime(value) {
   });
 }
 
-// نام انگلیسی CamelCase مثل CeramicStore را برای استایل دو‌رنگ لوگو می‌شکند.
+// Split a CamelCase name such as CeramicStore for two-tone logo styling.
 export function splitStoreName(storeName) {
   const name = String(storeName ?? "").trim() || "CeramicStore";
 

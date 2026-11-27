@@ -38,8 +38,8 @@ function App() {
   const activeSortValue =
     sortFromUrl === "newest" ? "newest" : sortValue;
 
-  // با ورود به صفحه یا کلیک روی لینک‌های منو (/#products، /#gallery، ...) به بخش موردنظر برو.
-  // وابستگی به key باعث می‌شود کلیک دوباره روی همان لینک هم اسکرول کند.
+  // Scroll to the requested section on navigation or when a menu link is clicked.
+  // Depending on the location key also scrolls when the same link is clicked again.
   useEffect(() => {
     if (hash) {
       document.getElementById(hash.slice(1))?.scrollIntoView();

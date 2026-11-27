@@ -2,7 +2,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { hasPermission } from "../auth/permissions.js";
 import { useAuth } from "../auth/useAuth.js";
 
-// فقط کاربران واردشده (و در صورت تعیین roles، فقط نقش‌های مجاز) اجازه ورود دارند.
+// Require a signed-in user and, when roles are specified, an allowed role.
 function RequireRole({ roles, permission, anyPermission, children }) {
   const { user, status } = useAuth();
   const location = useLocation();

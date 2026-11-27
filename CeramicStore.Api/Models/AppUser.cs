@@ -4,7 +4,7 @@ public class AppUser
 {
     public int Id { get; set; }
 
-    // همیشه با حروف کوچک ذخیره می‌شود.
+    // Always store this value in lowercase.
     public string Username { get; set; } = "";
 
     public string PasswordHash { get; set; } = "";

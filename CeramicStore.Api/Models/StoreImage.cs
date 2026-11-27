@@ -1,6 +1,6 @@
 namespace CeramicStore.Api.Models;
 
-// تصاویر خود فروشگاه (نه محصولات) برای گالری سایت
+// Images of the store for the gallery
 public class StoreImage
 {
     public int Id { get; set; }

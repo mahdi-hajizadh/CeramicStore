@@ -20,7 +20,7 @@ public class AuthController : ControllerBase
     private readonly TokenService _tokens;
     private readonly OtpService _otp;
 
-    // برای کاربرِ ناموجود هم یک بررسی رمز انجام می‌شود تا زمان پاسخ، وجود نام کاربری را لو ندهد.
+    // Check a password hash for unknown users too, to avoid exposing account existence through timing.
     private static readonly string DummyHash =
         new PasswordHasher<AppUser>().HashPassword(new AppUser(), Guid.NewGuid().ToString("N"));
 
@@ -59,7 +59,7 @@ public class AuthController : ControllerBase
             devCode));
     }
 
-    // POST: api/auth/register  (ثبت‌نام مشتری با موبایل + کد پیامک)
+    // POST api/auth/register (customer signup with a mobile number and SMS code)
     [HttpPost("register")]
     [EnableRateLimiting("auth")]
     public async Task<ActionResult<AuthResponse>> Register(
@@ -107,7 +107,7 @@ public class AuthController : ControllerBase
         return Ok(new AuthResponse(_tokens.CreateToken(user), UserDto.From(user)));
     }
 
-    // POST: api/auth/login  (نام کاربری/موبایل + رمز)
+    // POST api/auth/login (username or mobile number and password)
     [HttpPost("login")]
     [EnableRateLimiting("auth")]
     public async Task<ActionResult<AuthResponse>> Login(
@@ -143,7 +143,7 @@ public class AuthController : ControllerBase
         return Ok(new AuthResponse(_tokens.CreateToken(user), UserDto.From(user)));
     }
 
-    // POST: api/auth/login-otp  (ورود مشتری فقط با کد پیامک)
+    // POST api/auth/login-otp (customer sign-in with an SMS code)
     [HttpPost("login-otp")]
     [EnableRateLimiting("auth")]
     public async Task<ActionResult<AuthResponse>> LoginOtp(
@@ -217,7 +217,7 @@ public class AuthController : ControllerBase
         return Ok(UserDto.From(user));
     }
 
-    // PUT: api/auth/me  (ویرایش نام و رمز)
+    // PUT api/auth/me (update name and password)
     [HttpPut("me")]
     [Authorize]
     public async Task<ActionResult<UserDto>> UpdateProfile(

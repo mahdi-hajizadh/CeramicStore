@@ -9,7 +9,7 @@ export const emptyAddress = {
   postalCode: "",
 };
 
-// خطای اعتبارسنجی فرم آدرس (یا رشته خالی اگر معتبر است)
+// Return an address validation error or an empty string when valid.
 export function validateAddress(address) {
   if (address.recipientName.trim().length < 2) return "نام گیرنده را وارد کن.";
   if (!/^\+?\d{7,15}$/.test(normalizeDigits(address.phone))) {
@@ -24,7 +24,7 @@ export function validateAddress(address) {
   return "";
 }
 
-// آدرس را برای ارسال به API آماده می‌کند (ارقام فارسی → انگلیسی).
+// Normalize Persian digits before sending the address to the API.
 export function toAddressPayload(address) {
   return {
     recipientName: address.recipientName.trim(),

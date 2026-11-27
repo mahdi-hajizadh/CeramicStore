@@ -90,7 +90,7 @@ function CheckoutPage() {
     try {
       const order = await apiJson("/api/orders", { method: "POST", json: payload });
 
-      // آدرس فقط بعد از ثبت موفق سفارش ذخیره می‌شود؛ قبلاً با هر تلاش ناموفق یک آدرس تکراری ساخته می‌شد.
+      // Save the address only after a successful order to avoid duplicates on retry.
       if (selected === NEW_ADDRESS && saveForLater) {
         try {
           await apiJson("/api/addresses", {
@@ -98,7 +98,7 @@ function CheckoutPage() {
             json: toAddressPayload(newAddress),
           });
         } catch (err) {
-          // ذخیره آدرس اختیاری است (مثلاً سقف تعداد پر شده)؛ سفارش ثبت شده است.
+          // Saving the address is optional, even when the address limit has been reached. The order is already placed.
           console.error(err);
         }
       }

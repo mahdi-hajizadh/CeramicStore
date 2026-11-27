@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { API_URL } from "./config.js";
 
-// یک محصول را با شناسه از API می‌گیرد.
+// Fetch a product by ID from the API.
 // status: loading | ready | notfound | error
 export function useProduct(id) {
   const [result, setResult] = useState({ id: null, status: "loading", product: null });

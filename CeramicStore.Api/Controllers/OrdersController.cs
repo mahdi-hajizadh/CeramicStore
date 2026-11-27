@@ -38,7 +38,7 @@ public class OrdersController : ControllerBase
     }
 
     // POST: api/orders
-    // قیمت و موجودی همیشه در سرور محاسبه می‌شود؛ مقادیر ارسالی کلاینت قابل اعتماد نیستند.
+    // Calculate prices and stock on the server instead of trusting client values.
     [HttpPost]
     public async Task<ActionResult<OrderDto>> Create(
         CreateOrderDto dto,
@@ -46,7 +46,7 @@ public class OrdersController : ControllerBase
     {
         var userId = User.GetUserId();
 
-        // آدرس سفارش
+        // Shipping address
         ShippingAddressDto? shipping = dto.Address;
 
         if (dto.AddressId is not null)
@@ -78,7 +78,7 @@ public class OrdersController : ControllerBase
             return BadRequest("آدرس تحویل را وارد یا انتخاب کن.");
         }
 
-        // ادغام ردیف‌های تکراری یک محصول
+        // Combine duplicate lines for the same product.
         var lines = dto.Items
             .GroupBy(i => i.ProductId)
             .Select(g => new { ProductId = g.Key, Quantity = g.Sum(x => x.Quantity) })
@@ -116,7 +116,7 @@ public class OrdersController : ControllerBase
             var product = products.First(p => p.Id == line.ProductId);
             var quantity = line.Quantity;
 
-            // کم‌کردن اتمیک موجودی؛ اگر موجودی کافی نباشد هیچ ردیفی تغییر نمی‌کند.
+            // Decrement stock atomically. If stock is insufficient, no row changes.
             var affected = await _context.Products
                 .Where(p => p.Id == product.Id && p.Stock >= quantity)
                 .ExecuteUpdateAsync(
@@ -150,7 +150,7 @@ public class OrdersController : ControllerBase
         return Ok(OrderDto.From(order));
     }
 
-    // POST: api/orders/5/cancel  (فقط سفارش در انتظار خود کاربر)
+    // POST api/orders/5/cancel (only a pending order owned by the current user)
     [HttpPost("{id:int}/cancel")]
     public async Task<ActionResult<OrderDto>> Cancel(
         int id,
@@ -181,9 +181,9 @@ public class OrdersController : ControllerBase
     }
 }
 
-// لغو سفارش و بازگرداندن موجودی کارتن‌ها به انبار.
-// تغییر وضعیت با شرط «وضعیت هنوز همان است» انجام می‌شود؛ پس اگر دو درخواست لغو
-// هم‌زمان برسند، موجودی فقط یک بار برمی‌گردد.
+// Cancel the order and return the boxes to stock.
+// Update the status only if it still has the expected value.
+// Concurrent cancellation requests must restore stock only once.
 public static class OrderStock
 {
     public static async Task<bool> CancelAsync(
